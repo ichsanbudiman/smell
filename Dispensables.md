@@ -1,3 +1,7 @@
+# Dispensables
+
+[Smell](..) → [Martin Fowler Code Smells](Fowler) → [Dispensables](#)
+
 Semua smell di dalam grup ini berkaitan dengan bagian-bagian code kurang berguna dan bisa dibuang.
 
 - [Comments](#comments)

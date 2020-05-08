@@ -1,3 +1,7 @@
+# Abstraction
+
+[Smell](..) → [Girish Suryanarayana Code Smells](Girish) → [Abstraction](#)
+
 ![Girish abstraction smell](img/girish/abstraction.png "Girish abstraction smell")
 
 Semua smell di dalam grup ini berkaitan dengan kesalahan dalam mendesain abstraksi.
@@ -11,7 +15,7 @@ Semua smell di dalam grup ini berkaitan dengan kesalahan dalam mendesain abstrak
 - [Duplicate Abstraction](#duplicate-abstraction)
 
 
-### Prinsip abstraction
+### Prinsip Abstraction
 
 ![Girish abstraction principles](img/girish/abstraction_principles.png "Girish abstraction principles")
 

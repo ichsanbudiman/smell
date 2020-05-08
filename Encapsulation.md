@@ -1,3 +1,7 @@
+# Encapsulation
+
+[Smell](..) → [Girish Suryanarayana Code Smells](Girish) → [Encapsulation](#)
+
 ![Girish encapsulation smell](img/girish/encapsulation.png "Girish encapsulation smell")
 
 Semua smell di dalam grup ini berkaitan dengan kesalahan dalam mendesain abstraksi.

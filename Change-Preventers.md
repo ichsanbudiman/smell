@@ -1,3 +1,7 @@
+# Change Preventers
+
+[Smell](..) → [Martin Fowler Code Smells](Fowler) → [Change Preventers](#)
+
 Semua smell di dalam grup ini berkaitan dengan code yang mempersulit kita ketika ingin melakukan perubahan atau penambahan fitur.
 
 - [Divergent Change](#divergent-change)
