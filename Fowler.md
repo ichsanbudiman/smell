@@ -6,14 +6,14 @@ Semua contoh dalam [repository ini](https://github.com/mrp130/smell/tree/master/
 
 ### Penjelasan Smell
 
-- [Bloaters](bloaters)
-- [Object-Orientation Abusers](oo-abusers)
-- [Change Preventers](change-preventers)
-- [Dispensables](dispensables)
-- [Couplers](couplers)
+- [Bloaters](Bloaters)
+- [Object-Orientation Abusers](OO-Abusers)
+- [Change Preventers](Change-Preventers)
+- [Dispensables](Dispensables)
+- [Couplers](Couplers)
 
 ## Referensi
 
 - Fowler, Martin. Refactoring: improving the design of existing code. Addison-Wesley Professional, 2018.
-- Sourcemaking.com - https://sourcemaking.com/refactoring/smells/
-- Refactoring.guru - https://refactoring.guru/refactoring/smells/
+- Sourcemaking.com - [](https://sourcemaking.com/refactoring/smells/)
+- Refactoring.guru - [](https://refactoring.guru/refactoring/smells/)
