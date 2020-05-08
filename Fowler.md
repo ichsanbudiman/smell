@@ -7,7 +7,7 @@ Semua contoh dalam [repository ini](https://github.com/mrp130/smell/tree/master/
 ### Penjelasan Smell
 
 - [Bloaters](bloaters)
-- [Object-Orientation Abusers](object-orientation-abusers)
+- [Object-Orientation Abusers](oo-abusers)
 - [Change Preventers](change-preventers)
 - [Dispensables](dispensables)
 - [Couplers](couplers)
