@@ -91,8 +91,8 @@ Di beberapa bahasa pemrograman, ada cara spesifik untuk mengakali menghilangkan 
 
 [sourcemaking](https://sourcemaking.com/refactoring/smells/temporary-field) |
 [refactoring.guru](https://refactoring.guru/smells/temporary-field) |
-[before](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/switch_statements/before) |
-[after](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/switch_statements/after)
+[before](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/temporary_field/before) |
+[after](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/temporary_field/after)
 
 ### Penjelasan Smell
 
@@ -104,7 +104,7 @@ Di beberapa bahasa pemrograman, ada cara spesifik untuk mengakali menghilangkan 
 
 SOLID Principle yang perlu dicek untuk smell ini adalah SRP ([Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle)). Kita perlu mempertimbangkan apakah field yang bersangkutan adalah field yang cocok menempati class tersebut.
 
-Lihat class [BojekDriver.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/switch_statements/before/BojekDriver.java)
+Lihat class [BojekDriver.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/temporary_field/before/BojekDriver.java)
 ```java
 private int f;
 private int g;
@@ -135,9 +135,9 @@ Untuk contoh kasus ini, kita melakukan [Extract Class](https://sourcemaking.com/
 
 ![Each class has activities](https://refactoring.guru/images/refactoring/content/smells/temporary-field-03.png "Class kini tidak ada variabel pemalas, setiap variabel kini berada pada aktivitas yang diinginkan")
 
-Semua fungsi berkaitan dengan A* dan semua variabelnya kita usir ke class baru [AStar.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/switch_statements/after/AStar.java).
+Semua fungsi berkaitan dengan A* dan semua variabelnya kita usir ke class baru [AStar.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/temporary_field/after/AStar.java).
 
-Di class [BojekDriver](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/switch_statements/after/BojekDriver.java), fungsi `shortestPath` tetap ada, namun didelegasi ke class AStar.
+Di class [BojekDriver](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/temporary_field/after/BojekDriver.java), fungsi `shortestPath` tetap ada, namun didelegasi ke class AStar.
 
 ```java
 Vector<Location> shortestPath(){

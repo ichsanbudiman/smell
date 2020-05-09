@@ -74,7 +74,7 @@ inclusive. To specify centering, the alignment should be 0.5. */
 public float alignment;
 ```
 
-Selain kasus `java.awt.Point`, terdapat juga class [SizeRequirements](https://github.com/akmalrusli363/smell/tree/master/src/girish/encapsulation/deficient/before/SizeRequirement.java) dari package `java.swing.text` dimana pada variabel `alignment` dapat diakses dan diset nilainya langsung kepada variabel tersebut tanpa harus melalui validasi. Hal ini tentunya menimbulkan dampak fatal jika pada developer dengan \*sengaja\* menginput nilai sembarang.
+Selain kasus `java.awt.Point`, terdapat juga class [SizeRequirements](https://github.com/akmalrusli363/smell/tree/master/src/girish/encapsulation/deficient/before/SizeRequirement.java) dari package `java.swing.text` dimana pada variabel `alignment` dapat diakses dan diset nilainya langsung kepada variabel tersebut tanpa harus melalui validasi. Hal ini tentunya menimbulkan dampak fatal jika ada developer dengan \*sengaja\* menginput nilai sembarang.
 
 #### Penyelesaian
 
@@ -106,17 +106,17 @@ Hasilnya dalam package [after](https://github.com/akmalrusli363/smell/tree/maste
 ```java
 public class Foo {
   // aslinya private method, diubah jadi public untuk testing
-	private int bar() {
-		return 2;
-	}
+  private int bar() {
+    return 2;
+  }
 }
 
 class FooTest {
-	@Test
-	void test() {
-		Foo f = new Foo();
-		assertEquals(2, f.bar());
-	}
+  @Test
+  void test() {
+    Foo f = new Foo();
+    assertEquals(2, f.bar());
+  }
 }
 ```
 
@@ -169,16 +169,16 @@ Smell ini terjadi jika pada suatu abstraction membocorkan detail melalui suatu m
 
 ![Member class TodoList](img/girish/encapsulation/leaky-1.png "Member class TodoList")
 
-Di package before, terdapat class [TodoList](https://github.com/akmalrusli363/smell/smell/blob/master/src/girish/encapsulation/leaky/before/ToDoList.java) dimana terdapat method `getList()` yang seharusnya return Vector salinan dari `list`.
+Di package before, terdapat class [TodoList](https://github.com/akmalrusli363/smell/blob/master/src/girish/encapsulation/leaky/before/ToDoList.java) dimana terdapat method `getList()` yang seharusnya return Vector salinan dari `list`.
 
 ```java
 public Vector<ToDo> getList() {
-	//shallow copy
-	return list;
+  //shallow copy
+  return list;
 }
 ```
 
-Namun tanpa disadari, dikarenakan Java merupakan bahasa pemrograman yang dibekali dengan automatic pointer, variabel yang direturn merupakan referensi dari `list` pada class tersebut. Dikarenakan variabel hasil return method tersebut merupakan referensi terhadap `list` atau istilah kerennya adalah *shallow copy*, maka ketika variabel hasil shallow copy tersebut mengalami perubahan, maka referensi terkait juga ikutan berubah sehingga dapat menimbulkan masalah secara sistematis terhadap `list` tersebut.
+Namun tanpa disadari, dikarenakan Java merupakan bahasa pemrograman yang dibekali dengan [variable referencing](https://www.geeksforgeeks.org/is-there-any-concept-of-pointers-in-java/), variabel yang direturn merupakan referensi dari `list` pada class tersebut. Dikarenakan variabel hasil return method tersebut merupakan referensi terhadap `list` atau istilah kerennya adalah *shallow copy*, maka ketika variabel hasil shallow copy tersebut mengalami perubahan, maka referensi terkait juga ikutan berubah sehingga dapat menimbulkan masalah secara sistematis terhadap `list` tersebut.
 
 #### Penyelesaian
 
@@ -187,20 +187,44 @@ Dikarenakan method tersebut meminta Vector salinan dari `list`, maka salah satu 
 ```java
 public Vector<ToDo> getList() {
   //deep copy
-	Vector<ToDo> result = new Vector<>();
+  Vector<ToDo> result = new Vector<>();
 
   for (ToDo toDo : list) {
     try {
-			result.add((ToDo) toDo.clone());
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-	}
-	return result;
+      result.add((ToDo) toDo.clone());
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+  }
+  return result;
 }
 ```
 
-Sehingga ketika method dalam [TodoList (after)](https://github.com/akmalrusli363/smell/smell/blob/master/src/girish/encapsulation/leaky/after/ToDoList.java) tersebut di-invoke, maka setiap isi dari todo list akan diclone ke Vector baru sehingga diperoleh Vector hasil clone dimana setiap modifikasi yang dilakukan pada list tersebut tidak berpengaruh pada list asli dari class tersebut.
+Sehingga ketika method dalam [TodoList (after)](https://github.com/akmalrusli363/smell/blob/master/src/girish/encapsulation/leaky/after/ToDoList.java) tersebut di-invoke, maka setiap isi dari todo list akan diclone ke Vector baru sehingga diperoleh Vector hasil clone dimana setiap modifikasi yang dilakukan pada list tersebut tidak berpengaruh pada list asli dari class tersebut.
+
+#### Catatan
+
+Pada beberapa bahasa pemrograman (termasuk Java), kasus **shallow copy** juga terjadi pada Object dimana ketika suatu variabel yang diassign dari Object mengalami perubahan nilai (baik dari referensi asli maupun variabel pengikutnya), maka variabel-variabel yang mengikuti referensi asli dari Object tersebut mengalami perubahan nilai.
+
+```java
+Rectangle r1 = new Rectangle(20);
+Rectangle r2 = r1; //shallow copy (return as reference of r1)
+r2.setLength(40);
+System.out.println("Rectangle 1 length: " + r1.getLength());
+System.out.println("Rectangle 2 length: " + r2.getLength());
+```
+
+Sebagai solusinya, pergunakan **deep copy** pada setiap `Vektor`/`ArrayList`/`Collections` beserta membernya untuk dibuatkan copy dari variabel tersebut beserta isinya secara utuh dengan method `clone()` sehingga ketika variabel pengikutnya (returner) ataupun variabel asli mengalami perubahan value, maka variabel lain yang mengikutinya tidak mengalami perubahan.
+
+```java
+Rectangle r1 = new Rectangle(20);
+Rectangle r2 = r1.clone(); //deep copy (return as value of r1!)
+r2.setLength(40);
+System.out.println("Rectangle 1 length: " + r1.getLength());
+System.out.println("Rectangle 2 length: " + r2.getLength());
+```
+
+Maka dengan penggunaan `clone()` setidaknya dapat menyelesaikan kasus *shallow copy* pada Object sehingga tidak mempengaruhi Object secara struktural.
 
 ### Contoh 2: Penamaan method yang mengumbarkan detail implementasi
 
@@ -222,7 +246,33 @@ Jika algoritma tersebut perlu diganti implementasi dari `bubbleSort()` menjadi `
 
 ### When to Ignore
 
-Adalah bila kasus tersebut dilakukan pada low-level hardware programming yang mengutamakan integritas data dan object. (Rujukan: 4.2.7 - Practical considerations (hal 78))
+Adalah bila kasus tersebut terjadi pada *low-level class* yang berisikan implementasi yang sangat detail dan tidak bakal dipakai sama client class di tempat lain karena class tersebut berperan untuk membantu class yang hierarkinya lebih tinggi dan dipakai oleh Client (higher hierarchical class means usable API implementation). Salah satu contoh kasus *low-level class* adalah class [AStar.java](https://github.com/akmalrusli363/smell/blob/master/src/fowler/oo_abusers/temporary_field/after/AStar.java)
+
+```java
+public class AStar {
+  private int f;
+  private int g;
+  private int h;
+
+  Vector<Location> shortestPath(Location current, Location destination){
+    Vector<Location> paths = new Vector<>();
+
+    //...
+    //complex A* algorithm code. using f, g, h variable
+    //...
+
+    return paths;
+  }
+}
+```
+
+Pada contoh class `AStar.java`, secara struktural class tersebut memiliki variabel `f`, `g`, dan `h` dimana class tersebut juga berisikan detail rumus A* dimana rumus tersebut hanya dipakai untuk membantu class `BojekDriver.java` dan tidak digunakan pada client class sehingga smell tersebut dapat diabaikan/ignore.
+
+Girish dalam bukunya juga memberikan catatan pada developer untuk mengabaikan smell-smell yang terjadi pada low-level class yang berperan sebagai helper untuk class dengan hierarkinya lebih tinggi:
+
+> In such cases, when public interface is designed purposefully in this way, clients should be warned that the improper use of those public methods might result in violating the integrity of the object
+
+(Rujukan: 4.2.7 - Practical considerations (hal 78))
 
 
 ## Missing Encapsulation
@@ -245,7 +295,7 @@ Smell ini terjadi bila variabel tersebut tidak terenkapsulasi dalam abstraksi/hi
 
 ![Struktur class Encryption yang membludak](img/girish/encapsulation/missing-1.png "Struktur class Encryption yang membludak")
 
-Misal dalam package before, class [Encryption](https://github.com/akmalrusli363/smell/smell/blob/master/src/girish/encapsulation/missing/before/Encryption.java) berisikan implementasi dan variasi yang dimuatkan bersamaan dalam satu abstraksi. Hal ini tentunya tidak baik jika terjadi perubahan atau penambahan variasi baru dalam class tersebut sehingga menimbulkan [Divergent Changes](Change-Preventers#Divergent-Changes).
+Misal dalam package before, class [Encryption](https://github.com/akmalrusli363/smell/blob/master/src/girish/encapsulation/missing/before/Encryption.java) berisikan implementasi dan variasi yang dimuatkan bersamaan dalam satu abstraksi. Hal ini tentunya tidak baik jika terjadi perubahan atau penambahan variasi baru dalam class tersebut sehingga menimbulkan [Divergent Changes](Change-Preventers#Divergent-Changes).
 
 #### Penyelesaian
 
@@ -278,6 +328,8 @@ Dengan pemakaian Strategy Pattern, user dapat menentukan sendiri algoritma yang 
 
 [Link Video](https://www.youtube.com/watch?v=qQC5cXVuX9Y&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju&index=5) |
 [Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/encapsulation/unexploited)
+
+> Tampaknya ini smell udah familiar dengan Martin Fowler - Switch Statments... Intinya jangan pakai if-else atau switch untuk seleksi Object aja..! Selesai :grinning:
 
 Smell ini terjadi karena adanya pemakaian `switch` ataupun `if-else` statement untuk melakukan validasi tipe object. Smell ini hampir sama dengan smell [Switch statements](Object-Orientation-Abusers#switch-statements).
 
