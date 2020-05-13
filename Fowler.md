@@ -1,6 +1,6 @@
 # Martin Fowler Code Smells
 
-[Smell](..) → [Martin Fowler Code Smells](#)
+[Smell](.) → [Martin Fowler Code Smells](#)
 
 Untuk pembagian materi, BINUS menggunakan pengelompokan group smell yang telah dibuat oleh [sourcemaking](https://sourcemaking.com/refactoring) (atau sumber langsungnya, [refactoring.guru](https://refactoring.guru/refactoring/smells/)).
 

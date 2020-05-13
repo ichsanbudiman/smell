@@ -1,6 +1,6 @@
 # Modularization
 
-[Smell](..) → [Girish Suryanarayana Code Smells](Girish) → [Modularization](#)
+[Smell](.) → [Girish Suryanarayana Code Smells](Girish) → [Modularization](#)
 
 ![Girish modularization smell](img/girish/modularization.png "Girish modularization smell")
 

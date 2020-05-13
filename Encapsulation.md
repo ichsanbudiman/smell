@@ -1,6 +1,6 @@
 # Encapsulation
 
-[Smell](..) → [Girish Suryanarayana Code Smells](Girish) → [Encapsulation](#)
+[Smell](.) → [Girish Suryanarayana Code Smells](Girish) → [Encapsulation](#)
 
 ![Girish encapsulation smell](img/girish/encapsulation.png "Girish encapsulation smell")
 

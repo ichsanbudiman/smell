@@ -1,6 +1,6 @@
 # Abstraction
 
-[Smell](..) → [Girish Suryanarayana Code Smells](Girish) → [Abstraction](#)
+[Smell](.) → [Girish Suryanarayana Code Smells](Girish) → [Abstraction](#)
 
 ![Girish abstraction smell](img/girish/abstraction.png "Girish abstraction smell")
 
