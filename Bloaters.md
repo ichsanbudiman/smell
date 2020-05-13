@@ -22,7 +22,7 @@ Semua smell di dalam grup ini berkaitan dengan bagian code yang terlalu gemuk. B
 
 ![Gulungan struk yang panjang tiada akhir](https://refactoring.guru/images/refactoring/content/smells/long-method-01.png "Long Method bagaikan gulungan struk yang panjang tiada akhir")
 
-> Long Method bagaikan gulungan struk yang panjang tiada akhir, dikira mau ikut lomba struk terpanjang macam kayak Al*amart apa? Atau mau nantang Edho Zell buat borong semua barang di Indom**et?
+> Long Method bagaikan gulungan struk yang panjang tiada akhir, dikira mau ikut lomba struk terpanjang macam kayak Al\*amart apa? Atau mau nantang Edho Zell buat borong semua barang di Indom\*\*et?
 
 ### Penjelasan Smell
 

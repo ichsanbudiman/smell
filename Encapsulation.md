@@ -4,18 +4,18 @@
 
 ![Girish encapsulation smell](img/girish/encapsulation.png "Girish encapsulation smell")
 
-Semua smell di dalam grup ini berkaitan dengan kesalahan dalam mendesain abstraksi.
+Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang enkapsulasi dalam interface/abstraksi.
 
-- [Deficient Encapsulation](#deficient)
-- [Leaky Encapsulation](#leaky)
-- [Missing Encapsulation](#missing)
-- [Unexploited Encapsulation](#unexploited)
+- [Deficient Encapsulation](#deficient-encapsulation)
+- [Leaky Encapsulation](#leaky-encapsulation)
+- [Missing Encapsulation](#missing-encapsulation)
+- [Unexploited Encapsulation](#unexploited-encapsulation)
 
 ### Filosofi
 
 Sebuah mobil mempunyai setir, pedal gas, dan pedal rem. Pedal rem berfungsi untuk melakukan pengereman mobil. Pengereman mobil sendiri mempunyai beberapa jenis, salah satunya adalah pengereman Anti-locking Braking System (ABS). Terkait terhadap kasus tersebut kita sebagai driver tentunya tidak perlu mengetahui detail mengenai sistem pengereman, karena kita cukup mengetahui pengereman tersebut melalui pedal rem kita sehingga detail sistem pengereman seperti ABS tidak diketahui secara langsung oleh kita.
 
-### Prinsip encapsulation
+### Prinsip Encapsulation
 
 [Link Video](https://www.youtube.com/watch?v=WqXM5lHEwGY&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju&index=1)
 
@@ -40,6 +40,8 @@ Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip enca
 
 [Link Video](https://www.youtube.com/watch?v=r-wphP9hQ8E&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju&index=2) |
 [Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/encapsulation/deficient)
+
+> PT Abun memiliki akun GitAsik untuk menampung project-project dari perusahaannya secara **private, public, dan semi-public**. Namun pada suatu hari, GitAsik menerima kasus bahwa repository semi-open milik PT Abun ternyata dapat diakses oleh **karyawan kompetitor PT Abun** itu sendiri padahal repository semi-public **hanya boleh diakses oleh perusahaan partner PT Abun**. Ternyata sialnya, karyawan GitAsik lupa mengubah access modifier sehingga menyebabkan kebocoran akses oleh kompetitor bahkan orang-orang awam sekalipun. Sungguh sangat kurang teliti karyawan GitAsik ini :anguished:
 
 Di bahasa pemrograman Java, terdapat 4 level access modifier yang tentunya berperan sangat penting dalam membatasi akses data yaitu:
 
@@ -155,6 +157,10 @@ Solusi tersebut merupakan salah satu cara agar private class tersebut dapat di-t
 
 [Link Video](https://www.youtube.com/watch?v=FXLKSYTwk_0&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju&index=3) |
 [Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/encapsulation/leaky)
+
+> Ada satu kejadian yang membuat smartphone OWO terbullykan seantero jagad raya. Bayangin udah capek-capeknya menciptakan kamera seciamik mungkin malah ditertawakan oleh lawan kompetitornya karena tidak sengaja menuliskan nama brand lensa kebanggaan kompetitornya, Leiwa pada iklan smartphonenya karena mungkin desainer iklan hape OWO sedang kelelahan... :sweat:
+>
+> Lah bayangin, seharusnya smartphone OWO mencantumkan teknologi "AI-Ciamik Camera" tanpa harus menuliskan nama brand lensa kamera malah kebablasan dihajar sampai nama brand lensa "Leiwa" ikutan tercantum di iklan padahal Direktur Marketing tidak pernah menyuruh untuk mencantumkan nama brand lensa yang dimiliki kompetitornya meski mereka berdua bekerjasama demi keperluan hardware kamera smartphone OWO itu sendiri.
 
 Smell ini terjadi jika pada suatu abstraction membocorkan detail melalui suatu method/interface. Smell ini berbeda dengan Deficient Encapsulation dimana kebocoran abstraction tersebut terjadi pada method yang sudah benar dalam access modifier. Selain itu, penamaan public method/implementation yang mengumbar-umbarkan detail implementation juga menimbulkan smell ini (Misal dalam class `List` terdapat public method bernama `bubbleSort()` yang seharusnya dapat diganti nama dengan `sort()` sehingga dapat diubah implementasi dari proses sorting tersebut).
 
@@ -281,6 +287,10 @@ Girish dalam bukunya juga memberikan catatan pada developer untuk mengabaikan sm
 [Link Video](https://www.youtube.com/watch?v=tHKGrugra70&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju&index=4) |
 [Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/encapsulation/missing)
 
+> Game PC biasanya dikontrol dengan keyboard dan mouse. Namun pada beberapa kasus, jika terdapat joystik yang ingin difungsikan sebagai controller Game PC, diperlukan injeksi class/hierarki agar dapat dimainkan oleh joystik. Bayangkan apa yang terjadi bila elemen-elemen dalam game tersebut dikontrol secara *hard-code* dengan tombol keyboard/mouse? Apakah hal tersebut hanya membuat waktu yang berkepanjangan untuk menambahkan line-of-codes untuk menambahkan elemen-elemen agar compatible dengan joystik?
+>
+> Enggak mau kan :tired_face:.. Bisa meninggal developernya tuh :((
+
 Smell ini terjadi bila variabel tersebut tidak terenkapsulasi dalam abstraksi/hierarki. Perlu diwaspadai jika smell ini juga dapat menimbulkan ledakan class jika smell ini terjadi pada hierarki yang bercabang-cabang ataupun hierarki 'bucin' dikarenakan adanya penambahan variasi baru dalam hierarki. Smell ini juga disamaratakan dengan Divergent Changes pada class dan Parallel Inheritence pada hierarki.
 
 ### Penyebab
@@ -395,10 +405,10 @@ User tetap akan meng-input string melalui console. Oleh karena itu, kita perlu m
 
 Harusnya Anda menyadari bahwa terjadi violasi OCP disini. Bila class `Circle` dibuat, maka if di Factory bertambah. Hal ini dimaklumi karena OCP hanya dilanggar satu kali saja di dalam Factory (tidak akan dilanggar lagi di tempat lain) dan memang terpaksa dilakukan karena input dari user adalah string. Ibaratkan Factory disini berperan sebagai anti-corruption layer.
 
-Di beberapa bahasa pemrograman, ada cara spesifik untuk mengakali menghilangkan if-else pada class Factory, contohnya untuk Java: https://www.javacodegeeks.com/2014/10/factory-without-if-else.html.
+Di beberapa bahasa pemrograman, ada cara spesifik untuk mengakali menghilangkan if-else pada class Factory, contohnya pada penerapan [Factory without if-else in Java](https://www.javacodegeeks.com/2014/10/factory-without-if-else.html).
 
 ---
 
 ## Catatan Referensi
 
-Repository ini hanyalah rangkuman dari buku Suryanarayana et al. dengan sedikit tambahan informasi lain. Diharapkan mahasiswa juga membaca sumber aslinya pada bab 4 halaman 61 - 91.
+Wiki dan repository ini hanyalah rangkuman dari buku Suryanarayana et al. dengan sedikit tambahan informasi lain. Diharapkan mahasiswa juga membaca sumber aslinya pada bab 4 halaman 61 - 91.
