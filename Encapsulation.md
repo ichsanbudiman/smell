@@ -27,6 +27,7 @@ Menurut Girish Suryanarayana dkk, terdapat 2 prinsip encapsulation yaitu:
 - **Hide variations** - Class tidak perlu mengetahui variasi-variasi yang dimiliki pada hierarki sehingga ia cukup mengetahui implementasi abstraknya saja.
 
 Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip encapsulation antara lain:
+
 | Encapsulation smell | Pelanggaran prinsip encapsulation | Penyebab | Martin Fowler smells |
 | --- | --- | --- | --- |
 | Deficient Encapsulation | Hide implementation details | Adanya akses terhadap member abstraksi, terutama jika access modifier `public` | Inappropriate Intimacy |
