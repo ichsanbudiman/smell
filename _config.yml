@@ -1,3 +1,5 @@
 theme: jekyll-theme-cayman
 title: Code Reengineering
-description: Repository berisikan berbagai smell dan teknik-teknik refactoring dalam menyelesaikan kasus tersebut (Code Reengineering)
+description: Code Reengineering - Smell, Refactoring, and Technical Debts.
+plugins:
+  - jemoji
