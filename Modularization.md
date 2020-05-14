@@ -27,8 +27,8 @@ Menurut Girish Suryanarayana dkk, terdapat 4 prinsip modularization yaitu:
 
 - **Localize related data and methods** - Kumpulkan field, member, dan method yang mempunyai tanggungjawab yang sama ke dalam 1 abstraksi.
 - **Decompose abstractions to manageable size** - Membagikan sebuah abstraksi yang terlalu besar menjadi beberapa abstraksi (yang imbang ukurannya, tidak terlalu kecil dan tidak terlalu besar) yang disesuaikan dengan tanggungjawab masing-masing abstraksi/class sehingga dapat dimengerti oleh developer.
-- **Create acyclic dependencies** - Sebuah abstraksi seharusnya tidak boleh mengandung dependensi yang *cyclic* dengan class lain baik secara langsung ataupun tidak langsung. Jika digambarkan dalam *dependency graph*, maka graph tersebut tidak boleh terdapat perputaran dependency antar-class. Prinsip ini tentunya bertujuan agar tidak terjadi *domino-effect* ataupun [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena adanya perubahan dalam satu modul.
-- **Limit dependencies** - Sebuah abstraksi seharusnya dibuat dengan dependensi seminimal mungkin baik *fan-in* (import) maupun *fan-out* (usages for another abstraction). Tujuan dari prinsip tersebut sama dengan *Create acyclic dependencies* yaitu untuk mencegah terjadinya *domino-effect* ataupun [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena adanya perubahan dalam satu modul pelanggar.
+- **Create acyclic dependencies** - Sebuah abstraksi seharusnya tidak boleh mengandung dependensi yang *cyclic* dengan class lain baik secara langsung ataupun tidak langsung. Jika digambarkan dalam *dependency graph*, maka graph tersebut tidak boleh terdapat perputaran dependency antar-class. Prinsip ini tentunya bertujuan agar tidak terjadi *domino-effect* serta menimbulkan smell [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena adanya perubahan dalam satu modul.
+- **Limit dependencies** - Sebuah abstraksi seharusnya dibuat dengan dependensi seminimal mungkin baik *fan-in* (import) maupun *fan-out* (usages for another abstraction). Tujuan dari prinsip tersebut sama dengan *Create acyclic dependencies* yaitu untuk mencegah terjadinya *domino-effect* serta menimbulkan smell [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena adanya perubahan dalam satu modul pelanggar.
 
 Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip encapsulation antara lain:
 (field dan method)
@@ -44,7 +44,9 @@ Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip enca
 ## Broken Modularization
 
 [Link Video](https://www.youtube.com/watch?v=0aeIbhESMco&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/modularization/broken)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/broken)
+
+> Sejak kehadiran laptop MakBook generasi terbaru, Pabble dengan sengaja dan tega-teganya hanya menyediakan 1 colokan USB-C dan colokan headset di laptop tersebut. Bayangkan, 1 colokan aja tidak cukup hanya buat cas lho! Nyolok Flashdisk aja gk bisa apalagi barengan sama charger. Untungnya, Pabble menjual complete kit dengan colokan HDMI, 2x USB 3.0, LAN Port, dan 2x USB-C **NAMUN** dijual terpisah dengan harga 1 juta Rupiah! Ya bayangin jika laptop yang anda gunakan hanya disediakan 1 colokan bagaimana pakainya dong?? _(Referensi: [https://inet.detik.com/consumer/d-2853926/colokan-sapu-jagat-di-macbook-baru-apple](https://inet.detik.com/consumer/d-2853926/colokan-sapu-jagat-di-macbook-baru-apple))_
 
 Smell ini terjadi jika pada data member, field, atau method yang seharusnya dikumpulkan dalam 1 class/abstraksi malah terpisah dan tersebar di abstraksi lain. Smell ini sering dimanifestasikan sebagai:
 
@@ -71,18 +73,18 @@ Cara paling mudahnya dalam menyelesaikan smell ini adalah dengan memindahkan mem
 
 #### Masalah
 
-Terdapat dua class dalam kasus yaitu [Device.java](../tree/master/src/girish/modularization/broken/before/Device.java) dan [DeviceData.java](../tree/master/src/girish/modularization/broken/before/DeviceData.java). Pada kasus tersebut, member-member dari `Device` dipisahkan ke class lain yang bernama `DeviceData`, dimana method-method dari `Device` akan memanggil data-data dari class `DeviceData`. Hal ini seharusnya tidak boleh dilakukan dalam OOP dikarenakan class seharusnya menampung semua method dan member yang mempunyai tanggungjawab yang sama.
+Terdapat dua class dalam kasus yaitu [Device.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/broken/before/Device.java) dan [DeviceData.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/broken/before/DeviceData.java). Pada kasus tersebut, member-member dari `Device` dipisahkan ke class lain yang bernama `DeviceData`, dimana method-method dari `Device` akan memanggil data-data dari class `DeviceData`. Hal ini seharusnya tidak boleh dilakukan dalam OOP dikarenakan class seharusnya menampung semua method dan member yang mempunyai tanggungjawab yang sama.
 
 Kasus inilah yang pada akhirnya menimbulkan smell **Broken Modularization** karena adanya perpecahan modul yang memiliki tanggungjawab yang sama dari kelas seharusnya.
 
 #### Penyelesaian
 
-Untuk menyelesaikan kasus smell tersebut, gabungkan field dan method menjadi 1 class sehingga class Device dapat menampung method, member, dan field sesuai tanggungjawabnya masing-masing. Pada class [Device.java](../tree/master/src/girish/modularization/broken/after/Device.java), semua member pindahan dari `DeviceData` ditampung sebagai private member dari `Device`.
+Untuk menyelesaikan kasus smell tersebut, gabungkan field dan method menjadi 1 class sehingga class Device dapat menampung method, member, dan field sesuai tanggungjawabnya masing-masing. Pada class [Device.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/broken/after/Device.java), semua member pindahan dari `DeviceData` ditampung sebagai private member dari `Device`.
 
 ### When to Ignore
 
 #### Auto-generated code
-Jika code tersebut digenerate secara otomatis dari generator (dari higher-level models, terdiri atas beberapa data class), maka hal tersebut memang dapat diabaikan karena dapat menimbulkan efek *out of sync* jika user melakukan modifikasi pada auto-generated codes. Contoh kasusnya adalah [GUI Builder](https://en.wikipedia.org/wiki/Graphical_user_interface_builder) ataupun [LinQ database modeling](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/)
+Jika code tersebut digenerate secara otomatis dari generator (dari higher-level models, terdiri atas beberapa data class), maka hal tersebut memang dapat diabaikan karena dapat menimbulkan efek *out of sync* jika user melakukan modifikasi pada auto-generated codes. Contoh kasusnya adalah [GUI Builder](https://en.wikipedia.org/wiki/Graphical_user_interface_builder) ataupun [LinQ database modeling](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
 #### Data Transfer Objects (DTOs)
 
@@ -94,7 +96,9 @@ Martin Fowler mendefinisikan [Data Transfer Objects](https://martinfowler.com/ea
 ## Insufficient Modularization
 
 [Link Video](https://www.youtube.com/watch?v=eRAoks2udlk&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/modularization/insufficient)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/insufficient)
+
+> PT Burung Pipit memproduksi mie instan dan bihun instan. Pada suatu hari, PT Burung Pipit mempunyai ide untuk memproduksi kwetiau instan dengan mesin yang sudah ada. Namun sayangnya karena proses pengolahan kwetiau sangat berbeda jauh dengan mie dan bihun, memodifikasikan mesin membutuhkan waktu hingga berbulan-bulan agar mampu menerima kwetiau untuk dioleh menjadi kwetiau instan. Hmmm... Ribet gak kira-kira mesin-mesin tersebut harus mereka modifikasi setiap mereka menerima jenis mie yang berbeda-beda? Kenapa gak beli mesin baru aja, biar tidak ribet harus ubah-ubah mie yang ada?
 
 Smell ini terjadi karena adanya abstraksi yang terlalu besar dan harus dipecahkan (dekomposisi) ke beberapa abstraksi baru. Terdapat 2 jenis smell yaitu:
 
@@ -143,13 +147,17 @@ Jika kasus ini berkaitan dengan bloated implementation, perlu dicek kompleksitas
 ## Cyclically-dependent Modularization
 
 [Link Video](https://www.youtube.com/watch?v=Xm5T75YZB0I&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/modularization/cyclic)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic)
+
+> Ketergantungan terhadap sebuah komoditas itu kadang tidak ada habis-habisnya. Ada sebuah kisah dimana Hengga membeli sandal di toko Sandal Biru, dimana sandal tersebut kebanyakan merupakan sandal hasil colongan di tempat ibadah *(Jangan ditiru ya!)*. Ketika Hengga hendak sholat Jumat di masjid, sandal tersebut dicolong dan Hengga marah karena sandalnya kecolongan. Eh.. ketika ia pulang dengan kaki terlanjangnya, ia menyadari sandal yang ia miliki dioper kembali ke toko Sandal Biru yang lagi-lagi adalah toko yang ia beli sandalnya.
+>
+> Betapa repotnya dan ribetnya ketergantungan hingga nyusahin orang lain. Udah gitu, nyolong sandalnya udah bagaikan *lingkaran setan* yang gak ada habis-habisnya! :anger: :imp: :sob:
 
 ![Graph of cyclic dependency](img/girish/modularization/cyclic-1.png "Graph of cyclic dependency")
 
 Smell ini terjadi ketika dua atau lebih abstraction saling bergantung satu sama lain baik secara langsung maupun tidak langsung. Smell ini tentunya melanggar [Acyclic Dependencies Principle (ADP)](https://en.wikipedia.org/wiki/Acyclic_dependencies_principle).
 
-Smell ini tidak hanya terjadi secara langsung secara inheritence dan field member, namun juga secara tidak langsung secara variabel dalam method maupun secara parametrik. Dampak dari smell ini adalah keharusan sang developer untuk menjalankan, tes, dan modifikasi pasangan cyclic class secara bersamaan, yang bahayanya dapat berpotensi terjadinya *domino-effect* ataupun [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena harus merubah class yang cyclic secara bersamaan atau dalam kasus fatalnya, bisa menjadi "senjata makan tuan" dari class pemanggil methodnya sendiri.
+Smell ini tidak hanya terjadi secara langsung secara inheritence dan field member, namun juga secara tidak langsung secara variabel dalam method maupun secara parametrik. Dampak dari smell ini adalah keharusan sang developer untuk menjalankan, tes, dan modifikasi pasangan cyclic class secara bersamaan, yang bahayanya dapat berpotensi terjadinya *domino-effect* serta menimbulkan smell [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena harus merubah class yang cyclic secara bersamaan atau dalam kasus fatalnya, bisa menjadi "senjata makan tuan" dari class pemanggil methodnya sendiri.
 
 ### Penyebab
 
@@ -176,7 +184,7 @@ Meski secara hirerarki cukup sulit dalam memberantas adanya smell pada tingkat t
 
 ![Struktur class Order dan TaxCalculator](img/girish/modularization/cyclic-3.png "Cyclic dependency antara class Order dan TaxCalculator")
 
-Pada kasus class [Order.java](../tree/master/src/girish/modularization/cyclic/before/Order.java), [TaxCalculator.java](../tree/master/src/girish/modularization/cyclic/before/TaxCalculator.java), dan [Item.java](../tree/master/src/girish/modularization/cyclic/before/Item.java), terdapat perputaran dependensi antar class. Member field class `Order` terdiri dari (composed of) beberapa `Item`, namun pada class `Order`, terdapat method `getAmount()` dimana dalam isi methodnya melakukan return `taxCal.computeAmount()`. Pada method `computeAmount()`, class tersebut mengambil semua item dalam class `Order` dan menghitung jumlah pajak dari transaksi order dengan memanggil method `calculateTax()` untuk kemudian ditotalkan dengan transaksi order tersebut dan di-return.
+Pada kasus class [Order.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/before/Order.java), [TaxCalculator.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/before/TaxCalculator.java), dan [Item.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/before/Item.java), terdapat perputaran dependensi antar class. Member field class `Order` terdiri dari (composed of) beberapa `Item`, namun pada class `Order`, terdapat method `getAmount()` dimana dalam isi methodnya melakukan return `taxCal.computeAmount()`. Pada method `computeAmount()`, class tersebut mengambil semua item dalam class `Order` dan menghitung jumlah pajak dari transaksi order dengan memanggil method `calculateTax()` untuk kemudian ditotalkan dengan transaksi order tersebut dan di-return.
 
 ```java
 // class Item
@@ -221,10 +229,10 @@ Secara tidak langsung, pemanggilan method `getAmount()` dari class `Order` secar
 
 Untuk mencegah terjadinya cyclic depedency, ada berbagai cara untuk menyelesaikan kejadian smell ini yaitu:
 
-- Introduce Interface
+- [Introduce/Extract Interface](https://refactoring.guru/extract-interface)
 - Breaking cyclic by removing a Dependency
-- Introduce another abstraction
-- Merging the abstractions
+- [Introduce/Extract to another abstraction](https://refactoring.guru/extract-class)
+- [Merging/Inline the abstractions](https://refactoring.guru/inline-class)
 
 Pada kasus class `Order` dan `TaxCalculator`, diketahui bahwa terdapat method `computeAmount()` yang sebetulnya dapat ditempatkan di class `Order` sehingga class `TaxCalculator` cukup mengkalkulasikan pajak dari total transaksi keseluruhan.
 
@@ -265,7 +273,7 @@ private double calculateTax(double amount) {
 }
 ```
 
-Sebagai gantinya, kita dapat memindahkan method `computeAmount()` dari class TaxCalculator ke Order sehingga class [TaxCalculator.java](../tree/master/src/girish/modularization/cyclic/after/Order.java) tidak perlu bergantung pada [Order.java](../tree/master/src/girish/modularization/cyclic/after/TaxCalculator.java) untuk mengambil data-data dari Order dan semua kalkulasi biaya cukup dilakukan dari class `Order` dan class `TaxCalculator` cukup mengkalkulasikan berbagai jenis pajak yang akan diaplikasikan kepada total biaya dari class `Order`.
+Sebagai gantinya, kita dapat memindahkan method `computeAmount()` dari class TaxCalculator ke Order sehingga class [TaxCalculator.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/after/Order.java) tidak perlu bergantung pada [Order.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/after/TaxCalculator.java) untuk mengambil data-data dari Order dan semua kalkulasi biaya cukup dilakukan dari class `Order` dan class `TaxCalculator` cukup mengkalkulasikan berbagai jenis pajak yang akan diaplikasikan kepada total biaya dari class `Order`.
 
 ### When to Ignore
 
@@ -275,7 +283,9 @@ Pada kasus **Unit cycles between conceptually related abstractions**, terutama p
 ## Hub-like Dependencies
 
 [Link Video](https://www.youtube.com/watch?v=ImUM8T-1fy4&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/modularization/hub)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/hub)
+
+> Toserba Pelangi merupakan toko serba ada yang menyediakan berbagai macam kebutuhan di Kerajaan Wantung mulai dari kebutuhan pokok dasar hingga perkakas, elektronik, gadget, dan furniture semuanya mereka sediakan. Bayangkan jika Toserba Pelangi hanya satu-satunya toserba di kerjaan tersebut, maka semua rakyatnya sangat amat bergantung dengan toserba tersebut. Kan ribet kalo rakyat harus melulu bergantung dengannya? :confused:
 
 ![Inner and outer dependencies of a class](img/girish/modularization/hub-1.png "Inner and outer dependencies of a class")
 
@@ -300,7 +310,7 @@ Kedua class besar ini juga belum dihitung jumlah dependensi secara implisit (met
 
 #### Kasus utility class
 
-Diketahui sebuah class bernama [Utility.java](../tree/master/src/girish/modularization/hub/before/Utility.java) dimana pada class tersebut berisikan berbagai macam jenis utility yang dapat dipergunakan oleh class lain.
+Diketahui sebuah class bernama [Utility.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/hub/before/Utility.java) dimana pada class tersebut berisikan berbagai macam jenis utility yang dapat dipergunakan oleh class lain.
 
 ```java
 public class Utilities {
@@ -352,7 +362,7 @@ public class Validation {
 }
 ```
 
-Class `Utility` memegang tanggung jawab lebih dari 1 yaitu validasi dan string manipulation, oleh karenanya diperlukan extract class ke class baru bernama [Validation.java](../tree/master/src/girish/modularization/hub/after/Validation.java) untuk keperluan sehingga pada class [Utility.java](../tree/master/src/girish/modularization/hub/after/Utility.java) cukup dipakai untuk keperluan string manipulation.
+Class `Utility` memegang tanggung jawab lebih dari 1 yaitu validasi dan string manipulation, oleh karenanya diperlukan extract class ke class baru bernama [Validation.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/hub/after/Validation.java) untuk keperluan sehingga pada class [Utility.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/hub/after/Utility.java) cukup dipakai untuk keperluan string manipulation.
 
 ### Julukan
 

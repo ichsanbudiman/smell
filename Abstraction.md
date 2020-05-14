@@ -42,6 +42,10 @@ Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip abst
 
 ## Missing Abstraction
 
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/missing)
+
+> Di sebuah industri peternakan, terdapat sekumpulan unggas yang diternakkan untuk pengolahan daging dan telur. Di suatu kejadian, supplier unggas merasakan kejanggalan setelah unggas yang mereka distribusikan tidak sesuai dengan keinginan penjualnya (penjual ingin membeli daging ayam malah diberikan daging bebek). Ya bayangkan jika di industri peternakan, ayam, bebek, angsa, dan kalkun mereka ternakkan dengan campur aduk tanpa memperhatikan perbedaan jenis-jenis unggas tersebut. :anguished:
+
 Smell ini terjadi ketika:
 
 - Ada sekumpulan data yang dibiarkan primitif (mirip Data Clumps Martin Fowler).
@@ -81,6 +85,10 @@ Smell ini tidak perlu di-refactor bila malah menyebabkan over-engineering.
 
 ## Imperative Abstraction
 
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/imperative)
+
+> Sehebat-hebatnya kerajaan tersebut dibangun, pasukan yang mereka kerahkan seharusnya siap sedia ikut perang dengan senjata andalannya. Eh di kerajaan Joger malah kebalik, ketika mereka mau mengerahkan pasukan malah pasukannya disuruh daftar ke jenderal dulu dan disuruh adu bacot-bacotan sama rajanya sendiri. Ya mau sampai kapan kalo pasukannya enggan siap-siap dari dulu :sob:.
+
 Smell ini terjadi ketika sebuah operasi dibuat menjadi sebuah class, dan di dalam class ini, hanya punya satu method saja.
 
 Sesuai namanya, paradigma OOP: **OBJECT**-oriented programming. Class di dalam OOP wajarnya berupa kata benda. Bukan kata kerja atau kata sifat. Method baru boleh kata kerja. Interface baru boleh kata sifat.
@@ -106,12 +114,15 @@ Smell ini tidak perlu di-refactor bila class memang sengaja dibuat imperatif. Bi
 
 ## Incomplete Abstraction
 
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/incomplete)
+
+> Kereta aja gandengan, masa kamunya enggak punya pasangan? Di game _**Beautiful Twilighters** (fiktif)_ ceritanya semua fitur *makhluk* dan *humanoid* mereka implementasikan termasuk menikahkan NPC dengan NPC lainnya :heart:. Namun di sisi player, malah tidak diberi opsi untuk berpasangan dan menikah dengan player lain. Lah si developer ini baperan atau apa :cry: ?
+
 Smell ini terjadi ketika ada sebuah method yang secara logika harusnya punya pasangan, namun karena belum ada requirement, developer belum membuat pasangannya.
 
 Contoh pasangan di buku Girish:
 
 ![pair example](img/girish/abstraction/word-pair-example.png)
-
 
 ### Contoh
 
@@ -146,6 +157,10 @@ Contoh lain, pada Java, class dibuat hanya punya constructor saja tanpa destruct
 
 ## Multifaceted Abstraction
 
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/multifaceted)
+
+> Produk 2-in-1 itu indah, misalnya shampo + conditioner dalam 1 sachet. Tapi kalo misalnya orang yang memakai produk 2-in-1 sachet ini hanya mau pakai shamponya buat keramas, apakah conditioner dari sachetan tersebut dibuang sia-sia?
+
 Smell ini terjadi ketika ada class yang memiliki lebih dari satu tanggungjawab (violasi SRP).
 
 Smell ini mirip dengan smell divergent change Martin Fowler. Biasanya divergent change disertai juga dengan smell large class.
@@ -171,6 +186,12 @@ Kita pindahkan method `print` di class `Rectangle` ke class yang baru. Karena di
 
 ## Unnecessary Abstraction
 
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/unnecessary)
+
+> Di kerajaan Sampan, semua pasukan selalu mereka siapkan mulai dari tentara, pasukan kuda, pasukan tank, pasukan pemanah, pasukan penyetok bata, pasukan pengamen, pasukan cangcimen, pasukan kucing, dan pasukan ayam. Semuanya mereka persiapkan untuk perang melawan kerajaan Tidus.
+>
+> Namun pada saat perang melawan kerajaan Tidus, ternyata pasukan-pasukan aneh tersebut malah dibantai secepat kilat oleh musuhnya. Yah sayang banget dah ngapain dibuatin yang aneh-aneh sih? :joy:
+
 Smell ini terjadi ketika ada class yang dibuat padahal tidak dibutuhkan.
 
 Smell ini mirip dengan speculative generality Martin Fowler.
@@ -192,6 +213,10 @@ Terlalu berlebihan bila sampai kita melakukan inheritance hanya untuk membedakan
 
 
 ## Unutilized Abstraction
+
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/unutilized)
+
+> Produsen mie ternama di Ciwakanda menghentikan produksi bihun dikarenakan tidak lakunya produk bihun di pasaran. Ketika mereka ingin menjual mesin pencetak bihun, ada ide untuk memanfaatkan mesin tersebut untuk produksi mie tebal. Namun di sisi lain, produsen tersebut belum menentukan apakah mesin tersebut dijual atau dipakai kembali hingga pada akhirnya mesin tersebut tidak terpakai hingga sekarang.
 
 Smell ini terjadi ketika ada class atau interface yang tidak pernah digunakan di dalam project. Smell ini mirip dengan dead code Martin Fowler.
 
@@ -232,6 +257,10 @@ Flag `deprecated` tidak hanya berlaku untuk smell ini saja. `Deprecated` bisa An
 
 
 ## Duplicate Abstraction
+
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/abstraction/duplicate)
+
+> Kerajaan Kopas menciptakan strategi perang dalam menghadapi perang melawan kerajaan Fotokopi. Dengan cara gilanya, kerajaan tersebut mengerahkan 2 pasukan andalannya, pasukan pisau dan pasukan pedang. Namun di musuh, kedua pasukan dianggap sama-sama membawa senjata *melee* sehingga musuh mengerahkan pasukan penembak sehingga kerajaan Kopas kandas dibantai oleh musuhnya karena kesamaan dalam membawakan senjata.
 
 Smell ini terjadi ketika ada abstraksi (class/interface) yang kembar. Mirip dengan smell `alternative classes with different interfaces` milik Martin Fowler.
 
