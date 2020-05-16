@@ -1,0 +1,30 @@
+<nav>
+  <div class="navmenu">
+    <a href="{{ site.url }}" class="logo"><strong>Code Reengineering</strong></a>
+    <ul class="menu" id="navMenu">
+      <li><a href="{{ site.url }}">Home</a></li>
+      <li><a href="{{ site.github.wiki_url }}">View on GitHub Wiki</a></li>
+      <li class="dropdown">
+        <div class="dropbutton">Contents
+          <i class="fa fa-caret-down"></i>
+        </div>
+        <ul class="dropdown-content">
+          {% for item in site.data.navigation %}
+            <li class="subdropdown">
+              <a href="{{ site.baseurl }}{{ item.url }}" class="dropdown">{{ item.title }}</a>
+              {% if item.subnav %}
+              <ul class="dropdown-subcontent">
+                {% for subitem in item.subnav %}
+                  <li class="subdropdown">
+                    <a href="{{ site.baseurl }}{{ subitem.url }}" class="dropdown">{{ subitem.title }}</a>
+                  </li>
+              </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    </ul>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="peekDropdown()">&#9776;</a>
+  </div>
+</nav>

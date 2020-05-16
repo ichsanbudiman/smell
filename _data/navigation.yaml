@@ -1,0 +1,24 @@
+- title: Martin Fowler Smells
+  url: Fowler
+  subnav:
+    - title: Bloaters
+      url: Bloaters
+    - title: Object-Orientation Abusers
+      url: OO-Abusers
+    - title: Change Preventers
+      url: Change-Preventers
+    - title: Dispensables
+      url: Dispensables
+    - title: Couplers
+      url: Couplers
+- title: Girish Suryanarayana
+  url: Girish
+  subnav:
+    - title: Abstraction
+      url: Abstraction
+    - title: Encapsulation
+      url: Encapsulation
+    - title: Modularization
+      url: Modularization
+    - title: Hirerarchy
+      url: Hirerarchy
