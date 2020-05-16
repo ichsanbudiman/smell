@@ -101,7 +101,7 @@ ul.dropdown-subcontent li {
 }
 
 .menu a:hover, .dropdown:hover .dropbutton, .navmenu a:hover {
-  background-color: #555555cc;
+  background-color: #3333337F;
   color: white;
 }
 
