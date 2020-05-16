@@ -1,7 +1,6 @@
-@import "{{ site.theme }}"
 body {
   margin:0;
-  font-family:Arial
+  font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 nav {
@@ -9,7 +8,8 @@ nav {
   padding: 0;
   position: sticky;
   top: 0;
-  background-color: #333;
+  z-index: 5;
+  background-color: #2A396A;
 }
 
 ul.menu, .dropdown-content, .dropdown-subcontent, .navmenu {
@@ -25,7 +25,6 @@ ul.menu, .dropdown-content, .dropdown-subcontent, .navmenu {
 
 ul.dropdown-subcontent li {
   border-left: 4px solid #cccccc;
-  padding-left: 10px;
 }
 
 .dropdown-content li, .dropdown-subcontent li {
@@ -151,7 +150,8 @@ ul.dropdown-subcontent li {
 
   .navmenu a.logo {
     float: none;
-    width: 50%;
+    width: auto;
+    max-width: 80%;
     margin: 0 auto;
     top: 50%;
     left: 50%;
