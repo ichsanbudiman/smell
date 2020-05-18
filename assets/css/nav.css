@@ -164,7 +164,7 @@ ul.dropdown-subcontent li {
 
   .dropdown-subcontent {
     display: block;
-    position: sticky;
+    position: relative;
     transform: translate(0,0);
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.0);
     top: 0;
@@ -178,15 +178,28 @@ ul.dropdown-subcontent li {
     right: 0;
     top: 0;
   }
-  .navmenu {position: sticky;}
-  .navmenu.responsive {position: relative;}
+  .navmenu {
+    position: sticky;
+  }
+  .navmenu.responsive {
+    position: relative;
+  }
+  .menu {
+    max-height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
+  }
   .menu.responsive a {
     float: none;
     display: block;
     text-align: left;
   }
-  .menu.responsive .dropdown {float: none;}
-  .menu.responsive .dropdown-content {position: relative;}
+  .menu.responsive .dropdown {
+    float: none;
+  }
+  .menu.responsive .dropdown-content {
+    position: relative;
+  }
   .menu.responsive .dropdown .dropbutton {
     display: block;
     width: 100%;
