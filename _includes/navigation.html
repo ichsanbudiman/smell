@@ -11,12 +11,12 @@
         <ul class="dropdown-content">
           {% for item in site.data.navigation %}
             <li class="subdropdown">
-              <a href="{{ site.baseurl }}{{ item.url }}" class="dropdown">{{ item.title }}</a>
+              <a href="{{ site.baseurl }}/{{ item.url }}" class="dropdown">{{ item.title }}</a>
               {% if item.subnav %}
               <ul class="dropdown-subcontent">
                 {% for subitem in item.subnav %}
                   <li class="subdropdown">
-                    <a href="{{ site.baseurl }}{{ subitem.url }}" class="dropdown">{{ subitem.title }}</a>
+                    <a href="{{ site.baseurl }}/{{ subitem.url }}" class="dropdown">{{ subitem.title }}</a>
                   </li>
                 {% endfor %}
               </ul>
