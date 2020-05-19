@@ -4,7 +4,7 @@
 
 ![Girish modularization smell](img/girish/modularization.png "Girish modularization smell")
 
-Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang modul-modul di dalam hirerarki.
+Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang modul-modul di dalam hierarki.
 
 - [Broken Modularization](#broken-modularization)
 - [Insufficient Modularization](#insufficient-modularization)
@@ -178,7 +178,7 @@ Secara mendasar, Girish juga menuliskan catatan mengenai adanya potensi *domino-
 
 > In this design, any change to an abstraction involved in this dependency chain has the potential to affect other abstractions that depend on it, causing **ripple effects or cascade of changes**. A designer must, therefore, strive for designs that do not consist of tangles.
 
-Meski secara hirerarki cukup sulit dalam memberantas adanya smell pada tingkat tinggi, apalagi pada level programming language API, namun kasus ini bisa dicegah dari bibit-bibitnya pada contoh kasus berikutnya.
+Meski secara hierarki cukup sulit dalam memberantas adanya smell pada tingkat tinggi, apalagi pada level programming language API, namun kasus ini bisa dicegah dari bibit-bibitnya pada contoh kasus berikutnya.
 
 #### Contoh 2: Order and TaxCalculator
 
@@ -366,9 +366,9 @@ Class `Utility` memegang tanggung jawab lebih dari 1 yaitu validasi dan string m
 
 ### Julukan
 
-- **Bottlenecks**: Smell ini terjadi jika ada class yang banyak dipakai kepada class lain.
-- **Local hubs**: Smell ini terjadi ketika sebuah abstraksi punya banyak dependensi dan dipakai oleh banyak class.
-- **Man-in-the-middle**: Smell ini terjadi ketika terdapat central class dalam hirerarki abstraksi yang sering dimanfaatkan sebagai mediator oleh class lain.
+- **Bottlenecks**: Ada class yang banyak dipakai kepada class lain.
+- **Local hubs**: Sebuah abstraksi punya banyak dependensi dan dipakai oleh banyak class.
+- **Man-in-the-middle**: Terdapat central class dalam hierarki abstraksi yang sering dimanfaatkan sebagai mediator oleh class lain.
 
 ### When to Ignore
 
