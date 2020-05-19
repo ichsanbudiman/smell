@@ -208,7 +208,7 @@ li .active {
 
   .menu {
     background-color: var(--main-shadow-accent-color);
-    max-height: 100vh;
+    max-height: 80vh;
     width: calc(100% + 50px);
     padding-right: 0;
     box-sizing: border-box;
