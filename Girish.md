@@ -13,7 +13,7 @@ Semua contoh dalam [repository ini](https://github.com/mrp130/smell/tree/master/
 - [Abstraction](Abstraction)
 - [Encapsulation](Encapsulation)
 - [Modularization](Modularization)
-- Hirerarchy
+- [Hierarchy](Hierarchy)
 
 ## Referensi
 
