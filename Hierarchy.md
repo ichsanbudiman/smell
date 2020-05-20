@@ -144,9 +144,9 @@ public void hit(GameObject obj, int damage) {
 - **Collapsed type hierarchy**: Terjadi karena adanya pemakaian 2 atau lebih conditional check yang digunakan untuk menentukan behaviour.
 - **Embedded features**: Terjadi karena adanya pemakaian toggle attribute untuk menentukan behaviour dari class-class lain.
 
-
 ### When to Ignore
 Smell ini dapat dibiarkan jika class tersebut difungsikan untuk pemakaian design pattern berbasis Factory class atau untuk keperluan input dari file/user prompts dengan encoding teks/inputan sebagai object dalam Java.
+
 
 ## Unnecessary Hierarchy
 
@@ -323,7 +323,7 @@ Smell ketiga subclass tersebut kemudian diselesaikan dengan melakukan introduce 
 
 #### Contoh 2: Kasus game environment Tree dan Stone
 
-Sebaliknya pada kasus game environment (package [before](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/wide)), terdapat 2 subclass dari [GameObject.java](GameObject.java) yaitu [Tree.java](Tree.java) dan [Stone.java](Stone.java) yang mempunyai salah satu method yang behaviournya mirip yaitu `destroy()`. Kedua subclass tersebut seharusnya mempunyai intermediate class yang berperan atas object-object seperti pohon dan batu yaitu `Environment`.
+Sebaliknya pada kasus game environment (package [before](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/wide/before)), terdapat 2 subclass dari [GameObject.java](GameObject.java) yaitu [Tree.java](Tree.java) dan [Stone.java](Stone.java) yang mempunyai salah satu method yang behaviournya mirip yaitu `destroy()`. Kedua subclass tersebut seharusnya mempunyai intermediate class yang berperan atas object-object seperti pohon dan batu yaitu `Environment`.
 
 ```java
 public class Stone extends GameObject {
@@ -353,7 +353,8 @@ Sebagai jalan penyelesaiannya, class [Environment.java](Environment.java) dibuat
 
 ### When to Ignore
 
-Kedua adalah kasus pemakaian `interface` di Java/C# untuk keperluan protokol generic seperti serialization yang dapat dipakai oleh class-class lain sehingga tidak dianggap memiliki smell Wide Hierarchy
+Kedua adalah kasus pemakaian `interface` di Java/C# untuk keperluan protokol generic seperti serialization yang dapat dipakai oleh class-class lain sehingga tidak dianggap memiliki smell Wide Hierarchy.
+
 
 ## Speculative Hierarchy
 
