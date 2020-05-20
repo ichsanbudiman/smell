@@ -21,7 +21,7 @@ Misal dalam package before, class [Encryption](before/Encryption.java) berisikan
 
 #### Penyelesaian
 
-**Opsi 1: Gunakan Inheritence**, dimana pada class [Encryption] semua class implementasi dipecahkan ke masing-masing class baru dengan pemakaian abstract method `encrypt()`. Opsi ini sangat berguna bila terdapat penambahan class baru dari hierarki abstraksi yang sudah ada.
+**Opsi 1: Gunakan Inheritence**, dimana pada class [Encryption](after/Encryption) semua class implementasi dipecahkan ke masing-masing class baru dengan pemakaian abstract method `encrypt()`. Opsi ini sangat berguna bila terdapat penambahan class baru dari hierarki abstraksi yang sudah ada.
 
 ```java
 Encryption encryption = new DES();
@@ -30,7 +30,7 @@ encryption.encrypt();
 
 Selain itu, dalam pembuatan Object juga terfasilitasi enkapsulasi karena user cukup membuat object tergantung pada variasi yang dipilih oleh user
 
-**Opsi 2: Gunakan [Strategy Pattern](https://refactoring.guru/design-patterns/strategy)**, dimana pada class [Encryption] diimplementasikan dengan interface [EncryptionAlgorithm] sehingga dalam class Encryption dapat disesuaikan algoritma yang diinginkan dalam enkripsi tersebut.
+**Opsi 2: Gunakan [Strategy Pattern](https://refactoring.guru/design-patterns/strategy)**, dimana pada class [Encryption](after_strategy/Encryption) diimplementasikan dengan interface [EncryptionAlgorithm](after_strategy/EncryptionAlgorithm) sehingga dalam class Encryption dapat disesuaikan algoritma yang diinginkan dalam enkripsi tersebut.
 
 ```java
 Encryption encryption = new Encryption(new AES());
