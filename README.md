@@ -8,7 +8,7 @@ Selamat datang di laman GitHub Pages (github.io) Code Reengineering!
 
 Kami menyarankan anda untuk mengunjungi laman [wiki](https://github.com/akmalrusli363/smell/wiki) untuk informasi detail dan lengkap mengenai smell dari Martin Fowler dan Girish Suryanarayana.
 
-Jika anda ingin melihat sekilas dan lebih detail mengenai materi Code Reengineering yang dibuatkan oleh dosen **Michael Reynaldo Phangtriastu _(mrp130)_**, dapat mengunjungi link "View lecture repository" pada navigation menu atau melalui [repository asli Code Reengineering - *mrp130*](https://github.com/mrp130/smell/).
+Jika anda ingin melihat sekilas dan lebih detail mengenai materi Code Reengineering yang dibuatkan oleh dosen **Michael Reynaldo Phangtriastu _(mrp130)_**, dapat mengunjungi link [repository asli Code Reengineering - *mrp130*](https://github.com/mrp130/smell/).
 
 Repository asli terhadap materi ini dibuatkan oleh dosen Code Reengineering, Michael Reynaldo Phangtriastu untuk keperluan materi online class COMP6106 - Code Reengineering, kelas LE01 semester genap tahun 2019-2020.
 

@@ -7,8 +7,9 @@
   --bg-dark: var(--main-accent-color);
 
   --accent1: #F1BE48; /* yellow - PANTONE 142 */
-  --accent2: #D3B4E2; /* purple - Orchid Bloom */
-  --accent3: #FBC1D1; /* pink - PANTONE 493 */
+  --accent2: #4FC5A5; /* green - Biscay Green */
+  --accent3: #D3B4E2; /* purple - Orchid Bloom */
+  --accent4: #FC9BB3; /* pink - PANTONE 183 */
 
   --active: #7DCC79; /* green - PANTONE 7737 */
 }
@@ -93,10 +94,6 @@ li .active {
   z-index: 1;
 }
 
-.dropdown-content li {
-  border-left: 4px solid var(--accent1);
-}
-
 .dropdown-content a {
   float: none;
   color: black;
@@ -125,10 +122,6 @@ li .active {
   z-index: 1;
 }
 
-.dropdown-subcontent li {
-  border-left: 4px solid var(--accent2);
-}
-
 .dropdown-subcontent a {
   float: none;
   color: black;
@@ -136,6 +129,23 @@ li .active {
   text-decoration: none;
   display: block;
   text-align: left;
+}
+
+/* Item Highlighting */
+.dropdown-content li .dropdown {
+  border-left: 4px solid var(--accent1);
+}
+
+.dropdown-content li .item {
+  border-left: 4px solid var(--accent2);
+}
+
+.dropdown-subcontent li .item {
+  border-left: 4px solid var(--accent3);
+}
+
+.dropdown-content li .external {
+  border-left: 4px solid var(--accent4);
 }
 
 /* Hovers */
@@ -162,7 +172,7 @@ li .active {
   display: block;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 750px) {
   .menu a:not(.logo), .dropdown .dropbutton {
     display: none;
   }
@@ -191,7 +201,7 @@ li .active {
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 750px) {
   .navigation-menu .icon {
     position: absolute;
     right: 0;
