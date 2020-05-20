@@ -21,14 +21,14 @@ Buku adalah konten yang berisikan sekumpulan teks paragraf. Bayangkan apa yang t
 
 ![Girish Modularization principles](img/girish/modularization_principles.png "Girish modularization principles")
 
-Secara teoretis, Sebuah class/abstraksi seharusnya memiliki tingkat kohesi yang tinggi dan coupling yang rendah sehingga class tersebut mempunyai tanggungjawab yang sesuai, function dan member yang saling berinteraksi satu sama lain tanpa bergantung pada class lain.
+Secara teoretis, Sebuah class/abstraksi seharusnya memiliki **tingkat kohesi yang tinggi dan coupling yang rendah** sehingga class tersebut mempunyai tanggungjawab yang sesuai, function dan member yang saling berinteraksi satu sama lain tanpa bergantung pada class lain.
 
 Menurut Girish Suryanarayana dkk, terdapat 4 prinsip modularization yaitu:
 
 - **Localize related data and methods** - Kumpulkan field, member, dan method yang mempunyai tanggungjawab yang sama ke dalam 1 abstraksi.
-- **Decompose abstractions to manageable size** - Membagikan sebuah abstraksi yang terlalu besar menjadi beberapa abstraksi (yang imbang ukurannya, tidak terlalu kecil dan tidak terlalu besar) yang disesuaikan dengan tanggungjawab masing-masing abstraksi/class sehingga dapat dimengerti oleh developer.
-- **Create acyclic dependencies** - Sebuah abstraksi seharusnya tidak boleh mengandung dependensi yang *cyclic* dengan class lain baik secara langsung ataupun tidak langsung. Jika digambarkan dalam *dependency graph*, maka graph tersebut tidak boleh terdapat perputaran dependency antar-class. Prinsip ini tentunya bertujuan agar tidak terjadi *domino-effect* serta menimbulkan smell [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena adanya perubahan dalam satu modul.
-- **Limit dependencies** - Sebuah abstraksi seharusnya dibuat dengan dependensi seminimal mungkin baik *fan-in* (import) maupun *fan-out* (usages for another abstraction). Tujuan dari prinsip tersebut sama dengan *Create acyclic dependencies* yaitu untuk mencegah terjadinya *domino-effect* serta menimbulkan smell [*shotgun-surgery*](Change-Preventers#shotgun-surgery) karena adanya perubahan dalam satu modul pelanggar.
+- **Decompose abstractions to manageable size** - Pecahkan abstraksi yang terlalu besar menjadi beberapa abstraksi (yang imbang ukurannya, tidak terlalu kecil dan tidak terlalu besar) sesuai dengan tanggungjawab masing-masing abstraksi/class sehingga dapat dimengerti oleh developer.
+- **Create acyclic dependencies** - Abstraksi seharusnya tidak boleh mengandung dependensi yang *cyclic* dengan class lain baik secara langsung ataupun tidak langsung. Jika digambarkan dalam *dependency graph*, maka graph tersebut tidak boleh terdapat perputaran dependency antar-class.
+- **Limit dependencies** - Sebuah abstraksi seharusnya dibuat dengan dependensi seminimal mungkin baik *fan-in* (usages/pemakaian di abstraksi lain) maupun *fan-out* (imports/ketergantungan pada abstraksi lain).
 
 Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip encapsulation antara lain:
 (field dan method)
@@ -38,7 +38,7 @@ Berdasarkan pada pengamatan abstraction smell, terdapat pelanggaran prinsip enca
 | Broken Modularization | Localize related data and methods | 1. Pemisahan data dan method dalam class terpisah<br>2. Method kecolongan bermain dengan class lain | 1. Data Class<br>2. Feature Envy |
 | Insufficient Modularization | Decompose abstractions to manageable size | 1. Class terlalu besar, tidak ada modularization<br>2. Class/method terlalu kompleks | 1. Large class, divergent changes<br>2. Long method |
 | Cyclically-dependent Modularization | Create acyclic dependencies | Class saling dependensi satu sama lain dengan pasangannya atau teman *selingkarnya* | Shotgun Surgery, Feature Envy, Inappropriate Intimacy |
-| Hub-like Modularization | Limit dependencies | Class terlalu banyak dependensi dari class lain atau dependensi masukan dari class lain | Shotgun Surgery (bisa terjadi pada class yang depend dengannya) |
+| Hub-like Modularization | Limit dependencies | Class terlalu banyak ketergantungan dari class lain atau dependensi masukan dari class lain | Shotgun Surgery (bisa terjadi pada class yang depend dengannya) |
 
 
 ## Broken Modularization
@@ -116,7 +116,7 @@ Pada kedua jenis smell ini, kompleksitas pada suatu method dapat diprediksi deng
 
 Jika magic number cyclomatic complexity dari implementation (satuan method) tersebut **lebih dari 10**, maka smell Insuffient Modularization tipe bloated implementation bisa terjadi pada abstraksi tersebut.
 
-Untuk mengetahui lebih jauh mengenai kompleksitas suatu method/abstraksi secara cyclomatic, dapat dilihat referensi lebih jauh melalui buku "Software Testing: A Craftsman's Approach, Third Edition" karangan Paul C. Jorgensen (Bab 9, Hal 139-146).
+Untuk mengetahui lebih jauh mengenai kompleksitas suatu method/abstraksi secara cyclomatic, dapat dilihat referensi lebih jauh melalui buku "Software Testing: A Craftsman's Approach, Third Edition" karangan Paul C. Jorgensen (Bab 9, Hal 139-146) atau melalui rangkuman [Software Testing: Perhitungan Cyclomatic Complexity](https://socs.binus.ac.id/2016/12/29/software-testing-perhitungan-cyclomatic-complexity/) yang dipublikasikan di socs.binus.ac.id.
 
 ### Penyebab
 
@@ -384,3 +384,4 @@ Untuk referensi tambahan mengenai materi modularization, terutama pada topik ter
 
 - Paul C. Jorgensen, "Software Testing: A Craftsman's Approach, Third Edition", Bab 9, Hal 139-146. CRC Press. 2013.
 - Brian Mearns, "Circular Dependencies in Dependency Injection," 11 Apr 2018. Medium. Available at https://medium.com/software-ascending/circular-dependencies-in-dependency-injection-403b790daebb
+- Gautham Prabhuk, "SOFTWARE METRICS," 22 Dec 2014. Wordpress. Available at https://gauthamprabhuk.wordpress.com/2014/12/22/software-metrics

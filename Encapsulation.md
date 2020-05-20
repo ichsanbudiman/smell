@@ -397,7 +397,7 @@ Dengan begini, bila ada jenis baru, misalkan `Circle`, kita tinggal extends dari
 
 ### When to Ignore
 
-Perlu diketahui jika pada kasus tersebut berkaitan dengan masalah validasi tipe object melalui inputan user, maka perlu diketahui bahwa smell ini dapat diabaikan namun dengan catatan pada kasus `ShapeFactory` berikut.
+Perlu diketahui jika pada kasus tersebut berkaitan dengan masalah validasi tipe object melalui inputan user ataupun class ini dibuatkan dengan menerapkan design pattern [Factory](https://refactoring.guru/design-patterns/abstract-factory), maka perlu diketahui bahwa smell ini dapat diabaikan namun dengan catatan pada kasus `ShapeFactory` berikut.
 
 #### ShapeFactory
 

@@ -1,4 +1,4 @@
-Hierarchy
+# Hierarchy
 
 [Smell](.) → [Girish Suryanarayana et al. Code Smells](Girish) → [Hierarchy](#)
 
@@ -38,7 +38,7 @@ Terdapat 5 prinsip dalam merancang hierarki:
   2. Golongkan kesamaan dalam superclass/root (tentunya dalam bentuk *abstract class* atau *interface* jika abstraksi superclass berupa template) dan variasi dalam subclass/child/leaves (melalui `extends` atau `implements`).
 - **Apply meaningful generalization**: Kelompokkan semua elemen-elemen (behaviour dan elemen) yang sama antar subclass sebagai bagian dari superclass. Generalization tentunya mempermudah pemakaian kembali code sehingga mengurangi jumlah duplikat dalam hierarki class.
 - **Ensure substitutability**: Pastikan setiap reference yang diturunkan dari superclass bisa disubstitusi di subclass tanpa mengubah behaviour secara hierarkis alias sesuai dengan prinsip *Liskov’s Substitution (LSP)*. Kasus ini terjadi bila class turunannya melanggar prinsip LSP seperti pada [OO-Abusers - Refused Bequest](Object-Orientation-Abusers#refused-bequest).
-- **Avoid redundant paths**: Hindari jalan pintas *inheritance* dikarenakan class turunan "cucu" sudah mengimplementasikan semuanya dari "kakek" hingga "anak" sehingga tidak berguna jika class "cicit" ambil jalan pintas dari kakeknya padahal class tersebut merupakan turunan dari cucu-nya sendiri. _(ya apalagi kalo Tamika  sampai nekat ambil jalan pintas dari Kakek Sugiono padahal bapaknya Tamika sendiri adalah anaknya Kakek Sugiono)_
+- **Avoid redundant paths**: Hindari jalan pintas *inheritance* dikarenakan class turunan "cucu" sudah mengimplementasikan semuanya dari "kakek" hingga "anak" sehingga tidak berguna jika class "cicit" ambil jalan pintas dari kakeknya padahal class tersebut merupakan turunan dari cucu-nya sendiri. _(ya apalagi kalo Tamika sampai nekat ambil jalan pintas dari Kakek Sugiono padahal bapaknya Tamika sendiri adalah anaknya Kakek Sugiono)_
 - **Ensure proper ordering**: Pastikan subclass/anaknya bergantung dengan superclass/parentnya, bukan sebaliknya. Jika hal ini terjadi sebaliknya, maka bisa mempersulit dalam reusability *parent class* secara hierarkis.
 
 Berdasarkan pada pengamatan hierarchy smell, terdapat pelanggaran prinsip hierarki antara lain:
@@ -60,13 +60,13 @@ Berdasarkan pada pengamatan hierarchy smell, terdapat pelanggaran prinsip hierar
 ## Missing Hierarchy
 
 [Link Video](https://www.youtube.com/watch?v=Z0gVvdARFWw&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../blob/master/src/girish/hierarchy/missing)
+[Materi](https://github.com/akmalrusli363/smell/blob/master/src/girish/hierarchy/missing)
 
 > Buat hierarki di bahasa pemrograman itu ya pada intinya buat abstract class/interface, buat class turunannya lalu extend dari abstract classnya, ~~selesai!~~ (bukan begitu!). Jangan lupa untuk memastikan class turunannya tidak ada yang duplikat dan semua method yang dibutuhkan di subclass ditulis di superclass (interface/abstract class).
 
 Smell ini terjadi ketika mayoritas class-class turunannya (subclass) mempunyai method/behaviour yang seharusnya bisa ditempatkan pada superclass sebagai method atau `abstract` method.
 
-Smell ini seringkali disandingkan dengan smell [Switch-statements](Object-Orientation-Abusers#switch-statements) dikarenakan smell ini identik dengan pemakaian `if-else` atau `switch` statements yang berulang-ulang (termasuk dengan `instanceof` untuk class matching pada object dan typecasting).
+Smell ini seringkali disandingkan dengan smell [Switch-statements](OO-Abusers#switch-statements) dikarenakan smell ini identik dengan pemakaian `if-else` atau `switch` statements yang berulang-ulang (termasuk dengan `instanceof` untuk class matching pada object dan typecasting).
 
 ### Penyebab
 
@@ -113,9 +113,9 @@ Meski demikian, developer Java juga mengakui adanya kesalahan yang menyebabkan s
 
 #### Contoh 2: Player, Monster, and NPC attack problems
 
-Pada kasus dalam package [before](../tree/master/src/girish/hierarchy/missing/before), terdapat 3 class entity yang menyangkut masalah attack, dimana salah satu classnya yaitu `NPC` adalah entity yang tidak dapat diserang oleh entity lain. Ketika class [GameObject.java](../tree/master/src/girish/hierarchy/missing/before/GameObject) dijadikan perwakilan atas entity-entity tersebut, penyerangan seharusnya tidak boleh terjadi pada `NPC` karena NPC tidak mempunyai darah.
+Pada kasus dalam package [before](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/missing/before), terdapat 3 class entity yang menyangkut masalah attack, dimana salah satu classnya yaitu `NPC` adalah entity yang tidak dapat diserang oleh entity lain. Ketika class [GameObject.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/missing/before/GameObject) dijadikan perwakilan atas entity-entity tersebut, penyerangan seharusnya tidak boleh terjadi pada `NPC` karena NPC tidak mempunyai darah.
 
-Di sisi lain, dipergunakanlah class [AttackService.java](../tree/master/src/girish/hierarchy/missing/before/AttackService.java) untuk menyelesaikan kasus penyerangan NPC, dimana class ini menyangkut adanya conditional checking pada snippet code berikut:
+Di sisi lain, dipergunakanlah class [AttackService.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/missing/before/AttackService.java) untuk menyelesaikan kasus penyerangan NPC, dimana class ini menyangkut adanya conditional checking pada snippet code berikut:
 
 ```java
 public void hit(GameObject obj, int damage) {
@@ -127,7 +127,7 @@ public void hit(GameObject obj, int damage) {
 }
 ```
 
-Snippet code/method `hit()` tentunya menimbulkan smell karena adanya pemakaian conditional checking yang berulang-ulang pada method tersebut. Sebagai gantinya, pada package [after](../tree/master/src/girish/hierarchy/missing/after), pemakaian polymorphism dipergunakan untuk menyelesaikan smell tersebut dengan membuat interface [Hittable](../tree/master/src/girish/hierarchy/missing/after/Hittable.java) yang mengimplementasikan method `hit(int damage)` untuk dipergunakan pada class `Monster` dan `Player` dimana pada class [AttackService.java](../tree/master/src/girish/hierarchy/missing/after/AttackService.java) dalam package `after`, hanya ada pemanggilan method polymorphism dari method `hit(GameObject obj, int damage)` sebagai berikut:
+Snippet code/method `hit()` tentunya menimbulkan smell karena adanya pemakaian conditional checking yang berulang-ulang pada method tersebut. Sebagai gantinya, pada package [after](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/missing/after), pemakaian polymorphism dipergunakan untuk menyelesaikan smell tersebut dengan membuat interface [Hittable](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/missing/after/Hittable.java) yang mengimplementasikan method `hit(int damage)` untuk dipergunakan pada class `Monster` dan `Player` dimana pada class [AttackService.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/missing/after/AttackService.java) dalam package `after`, hanya ada pemanggilan method polymorphism dari method `hit(GameObject obj, int damage)` sebagai berikut:
 
 ```java
 public void hit(GameObject obj, int damage) {
@@ -151,7 +151,7 @@ Smell ini dapat dibiarkan jika class tersebut difungsikan untuk pemakaian design
 ## Unnecessary Hierarchy
 
 [Link Video](https://www.youtube.com/watch?v=hfNd8QPcWDk&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../blob/master/src/girish/hierarchy/unnecessary)
+[Materi](https://github.com/akmalrusli363/smell/blob/master/src/girish/hierarchy/unnecessary)
 
 > Bagaikan cinta diminang dua.. Tapi jangan sampai dibedain habis-habisan terus namain botol air minum sampai ke urat-uratnya oi (meski botolnya dibeli 3 dari toko yang sama) :joy:! Atau jangan sampai terlalu niat pisahin gula, kopi, sama krimer dari kopi sachetan 3-in-1 terus taruh di toples yang berbeda sesuai kemasan kopinya juga kali :joy:!
 
@@ -203,7 +203,7 @@ Dalam kasus design pattern yaitu [State Design Pattern](https://sourcemaking.com
 ## Unfactored Hierarchy
 
 [Link Video](https://www.youtube.com/watch?v=IJFO8YlSosc&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/hierarchy/unfactored)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/unfactored)
 
 > Alkisah terdapat seekor sapi, kambing, dan domba yang sama-sama merupakan hewan ternak. Ketiga hewan itu sama-sama mempunyai 4 kaki, sama-sama makan rumput, dan sama-sama menghasilkan susu. Namun peternak tersebut menuliskan kesamaan dalam memakan rumput dan menghasilkan susu sebagai hal yang berbeda dalam katalog peternakan sehingga para peternak yang membaca hal tersebut memang terkadang memperlama bacaan katalog yang dikarangnya hingga disadari bahwa teknik memakan rumput dan produksi susu ternyata sama saja.
 >
@@ -233,7 +233,7 @@ Jika masalah tersebut menyangkut adanya duplikat dari code-code antar class, ter
 
 Salah satu masalah smell paling sederhana adalah masalah hierarki antar dua atau lebih subclass yang menyangkut 1 atau lebih method yang seharusnya dapat di-*pull up* (alias diimplementasikan abstract method di superclass) malah dibiarkan begitu saja dalam keadaan duplikat.
 
-Namun pada kasus hierarki class entity dan game system dimana class tersebut menyangkut adanya duplikasi code snippet antar class pada class [Monster.java](../tree/master/src/girish/hierarchy/unfactored/before/Monster.java) dan [Player.java](../tree/master/src/girish/hierarchy/unfactored/before/Player.java) dimana terdapat kesamaan pada bagian code pada method implementasi `hit(int damage)` pada bagian berikut:
+Namun pada kasus hierarki class entity dan game system dimana class tersebut menyangkut adanya duplikasi code snippet antar class pada class [Monster.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/unfactored/before/Monster.java) dan [Player.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/unfactored/before/Player.java) dimana terdapat kesamaan pada bagian code pada method implementasi `hit(int damage)` pada bagian berikut:
 
 ```java
 // Monster.java
@@ -258,7 +258,7 @@ public void hit(int damage) {
 }
 ```
 
-Dimulai dari setting variabel `health -= damage` hingga validasi health point terjadi duplikat dimana terdapat kesamaan isi code kecuali pada pengurangan variabel dengan `damage` yang berbeda pada kedua class. Kesamaan code tersebut jika ditunjukkan maka dapat diekstrak ke private method baru bernama `reduceHealth(int damage)` yang ditempatkan di abstract class baru bernama [GameUnit.java](../tree/master/src/girish/hierarchy/unfactored/after/GameUnit.java)
+Dimulai dari setting variabel `health -= damage` hingga validasi health point terjadi duplikat dimana terdapat kesamaan isi code kecuali pada pengurangan variabel dengan `damage` yang berbeda pada kedua class. Kesamaan code tersebut jika ditunjukkan maka dapat diekstrak ke private method baru bernama `reduceHealth(int damage)` yang ditempatkan di abstract class baru bernama [GameUnit.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/unfactored/after/GameUnit.java)
 
 ```java
 protected void reduceHealth(int damage) {
@@ -287,7 +287,7 @@ Jika bahasa pemrograman tersebut tidak mendukung beberapa hal-hal yang dapat mem
 ## Wide Hierarchy
 
 [Link Video](https://www.youtube.com/watch?v=7pyZYGDz54w&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/hierarchy/wide)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/wide)
 
 > Sebuah game studio sedang membuat game riding sepeda motor bernama "Motomoria", dimana rider dapat memilih berbagai macam jenis sepeda motor di Indonesia dimulai dari motor bebek, motor sport, motor scooter, dan motor touring. Pada suatu hari, salah seorang Product Owner menanyakan salah seorang kolektor motor, dimana ia mengaku mengoleksi motor-motor moge dari berbagai merek. Namun sayangnya, ketika ia menanyakan jenis-jenis yang ia miliki, ia langsung menuliskan nama motor yang ia miliki tanpa menuliskan kategori sepeda motor tersebut. Malahan kolektor itu bilang semua karakteristik motor itu mirip-mirip (dijawab sesederhana mungkin meski banyak karakteristik yang berbeda dari sepeda motor yang ia miliki).
 >
@@ -323,7 +323,7 @@ Smell ketiga subclass tersebut kemudian diselesaikan dengan melakukan introduce 
 
 #### Contoh 2: Kasus game environment Tree dan Stone
 
-Sebaliknya pada kasus game environment (package [before](../tree/master/src/girish/hierarchy/wide)), terdapat 2 subclass dari [GameObject.java](GameObject.java) yaitu [Tree.java](Tree.java) dan [Stone.java](Stone.java) yang mempunyai salah satu method yang behaviournya mirip yaitu `destroy()`. Kedua subclass tersebut seharusnya mempunyai intermediate class yang berperan atas object-object seperti pohon dan batu yaitu `Environment`.
+Sebaliknya pada kasus game environment (package [before](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/wide)), terdapat 2 subclass dari [GameObject.java](GameObject.java) yaitu [Tree.java](Tree.java) dan [Stone.java](Stone.java) yang mempunyai salah satu method yang behaviournya mirip yaitu `destroy()`. Kedua subclass tersebut seharusnya mempunyai intermediate class yang berperan atas object-object seperti pohon dan batu yaitu `Environment`.
 
 ```java
 public class Stone extends GameObject {
@@ -358,7 +358,7 @@ Kedua adalah kasus pemakaian `interface` di Java/C# untuk keperluan protokol gen
 ## Speculative Hierarchy
 
 [Link Video](https://www.youtube.com/watch?v=WaI-tpREgd8&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
-[Materi](../tree/master/src/girish/hierarchy/speculative)
+[Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/speculative)
 
 > Sungguh indah waktunya untuk main game GeTeA.. Developer BintangBatu membuatkan game sekuelnya, GeTeA 6 dimana player dapat mencoba untuk naik mobil, motor, pesawat, kapal, hingga helikopter. Namun pada suatu momen, developer juga tak lupa menyertakan kategori yang diancang-ancangnya, mobil terbang dan motor terbang. Keduanya ini memang ia sengaja buatkan kosong supaya di waktu yang akan datang developer dapat langsung mengerjakannya tanpa harus mengubah dan merekonstruksikan hierarki dari awal. Lalu developer juga bilang, ini class bisa dijadikan placeholder bagi modder untuk mod game dengan koleksi yang modder mau.
 >
@@ -397,7 +397,7 @@ Sebagai gantinya, lakukan [Collapse Hierarchy](https://sourcemaking.com/refactor
 
 #### Contoh 2: Digital Currency speculatives
 
-Dimabil dari kasus smell Martin Fowler yaitu [Speculative Generalities](Disposables#Speculative-Generalities), terdapat kasus dimana terdapat 2 mata uang yaitu `USD` dan `IDR` dalam requirement namun programmer berspekulasi bahwa IDR dan USD adalah kurs jenis tradisional, nantinya akan ada kurs jenis digital seperti bitcoin. Oleh karena itu, Programmer membuat hirarki seperti di dalam [package `before`](../tree/master/src/girish/hierarchy/speculative/before).
+Dimabil dari kasus smell Martin Fowler yaitu [Speculative Generalities](Disposables#Speculative-Generalities), terdapat kasus dimana terdapat 2 mata uang yaitu `USD` dan `IDR` dalam requirement namun programmer berspekulasi bahwa IDR dan USD adalah kurs jenis tradisional, nantinya akan ada kurs jenis digital seperti bitcoin. Oleh karena itu, Programmer membuat hirarki seperti di dalam [package `before`](https://github.com/akmalrusli363/smell/tree/master/src/girish/hierarchy/speculative/before).
 
 Sebagai jalan penyelesaiannya, lakukan [Collapse Hierarchy](https://sourcemaking.com/refactoring/collapse-hierarchy) dengan menghapus intermediate class `Traditional` dan `Digital`, sehingga class `USD` dan `IDR` menjadi turunan langsung dari class `Currency`.
 
@@ -442,7 +442,7 @@ Sebagai jalan penyelesaiannya, lakukan [Collapse Hierarchy](https://sourcemaking
 [Link Video](#) |
 [Materi](#)
 
-> Pengen main EPEP sambil video conference? Tenang ada EP-Konference, solusi bagi gamer yang tidak pengen kebolosan main EPEP ketika ada kelas online. Ya inovatif sih, tapi jangan sampai ngambil 2 kerjaan yang gitu-gitu juga kali. :joy:
+> Tamika adalah anaknya pak Joni & ibu Mimi serta cucunya kakek Sugiono. Tamika sendiri dilahirkan dan diwariskan oleh ayah dan ibunya. Namun pada suatu ketika ia ingin belajar dari kakeknya sehingga ia nekat ambil jalan pintas ilmunya dari Kakek Sugiono padahal bapaknya Tamika sendiri adalah anaknya Kakek Sugiono yang ilmunya sama-sama diwariskan darinya. Lah kalau ilmunya bapaknya sendiri datang dari kakeknya, kenapa gak belajar langsung aja dari bapaknya? Kan gak perlu capek-capek cari ilmu ke kakek Sugiono hanya ingin cepat jago. :joy:
 
 
 ## Cyclic Hierarchy *(coming soon)*
