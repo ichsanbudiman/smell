@@ -1,1 +1,10 @@
+---
+---
+
 @import "{{ site.theme }}";
+
+.site-footer {
+  padding-top: 0rem;
+  margin-top: 0rem;
+  border-top: solid 1px $hr-border-color;
+}
