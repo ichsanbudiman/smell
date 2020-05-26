@@ -3,3 +3,8 @@ title: Code Reengineering
 description: Code Reengineering - Smell, Refactoring, and Technical Debts.
 plugins:
   - jemoji
+
+defaults:
+  -
+    values:
+      big_header: false

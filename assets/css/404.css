@@ -5,7 +5,8 @@ body {
 
 .background {
   background-image: url('../404-bg.png');
-  height: 80vh;
+  min-height: 350px;
+  height: 85vh;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
@@ -63,5 +64,6 @@ body {
 @media screen and (max-width: 750px) {
   .background {
     font-size: 1em;
+    height: 80vh;
   }
 }
