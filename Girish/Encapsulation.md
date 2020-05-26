@@ -1,8 +1,8 @@
 # Encapsulation
 
-[Smell](.) → [Girish Suryanarayana et al. Code Smells](Girish) → [Encapsulation](#)
+[Smell](..) → [Girish Suryanarayana et al. Code Smells](.) → [Encapsulation](#)
 
-![Girish encapsulation smell](img/girish/encapsulation.png "Girish encapsulation smell")
+![Girish encapsulation smell](../img/girish/encapsulation.png "Girish encapsulation smell")
 
 Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang enkapsulasi dalam interface/abstraksi.
 
@@ -19,7 +19,7 @@ Sebuah mobil mempunyai setir, pedal gas, dan pedal rem. Pedal rem berfungsi untu
 
 [Link Video](https://www.youtube.com/watch?v=WqXM5lHEwGY&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju&index=1)
 
-![Girish encapsulation principles](img/girish/encapsulation_principles.png "Girish encapsulation principles")
+![Girish encapsulation principles](../img/girish/encapsulation_principles.png "Girish encapsulation principles")
 
 Menurut Girish Suryanarayana dkk, terdapat 2 prinsip encapsulation yaitu:
 
@@ -67,7 +67,7 @@ Jika dibiarkan dapat berpotensi adanya pembocoran data yang tidak terduga.
 
 #### Masalah
 
-![Struktur class java.awt.Point](img/girish/encapsulation/deficient-1.png "Struktur class java.awt.Point")
+![Struktur class java.awt.Point](../img/girish/encapsulation/deficient-1.png "Struktur class java.awt.Point")
 
 Dalam kasus `java.awt.Point`, terdapat 2 member variabel yang menggunakan access modifier public (yaitu `x` dan `y`) padahal sudah disertakan setter getter. Meski demikian, kasus tersebut tidak bisa direfactor paksa karena kasus tersebut tentunya berpengaruh besar terhadap developer-developer Java.
 
@@ -174,7 +174,7 @@ Smell ini terjadi jika pada suatu abstraction membocorkan detail melalui suatu m
 
 #### Masalah
 
-![Member class TodoList](img/girish/encapsulation/leaky-1.png "Member class TodoList")
+![Member class TodoList](../img/girish/encapsulation/leaky-1.png "Member class TodoList")
 
 Di package before, terdapat class [TodoList](https://github.com/akmalrusli363/smell/blob/master/src/girish/encapsulation/leaky/before/ToDoList.java) dimana terdapat method `getList()` yang seharusnya return Vector salinan dari `list`.
 
@@ -304,7 +304,7 @@ Smell ini terjadi bila variabel tersebut tidak terenkapsulasi dalam abstraksi/hi
 
 #### Permasalahan
 
-![Struktur class Encryption yang membludak](img/girish/encapsulation/missing-1.png "Struktur class Encryption yang membludak")
+![Struktur class Encryption yang membludak](../img/girish/encapsulation/missing-1.png "Struktur class Encryption yang membludak")
 
 Misal dalam package before, class [Encryption](https://github.com/akmalrusli363/smell/blob/master/src/girish/encapsulation/missing/before/Encryption.java) berisikan implementasi dan variasi yang dimuatkan bersamaan dalam satu abstraksi. Hal ini tentunya tidak baik jika terjadi perubahan atau penambahan variasi baru dalam class tersebut sehingga menimbulkan [Divergent Changes](Change-Preventers#Divergent-Changes).
 

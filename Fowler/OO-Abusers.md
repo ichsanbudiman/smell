@@ -1,3 +1,6 @@
+# Object Orientation Abusers
+
+[Smell](..) → [Martin Fowler Code Smells](.) → [OO-Abusers](#)
 
 Semua smell di dalam grup ini berkaitan dengan penerapan prinsip OOP yang kurang tepat.
 

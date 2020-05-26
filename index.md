@@ -1,3 +1,7 @@
+---
+  layout: "default"
+---
+
 # COMP6106 - Code Reengineering
 
 **_Lecture & Author: mrp130 - Michael Reynaldo Phangtriastu (D5888)_**

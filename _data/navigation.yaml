@@ -2,24 +2,24 @@
   url: Fowler
   subnav:
     - title: Bloaters
-      url: Bloaters
+      url: Fowler/Bloaters
     - title: Object-Orientation Abusers
-      url: OO-Abusers
+      url: Fowler/OO-Abusers
     - title: Change Preventers
-      url: Change-Preventers
+      url: Fowler/Change-Preventers
     - title: Dispensables
-      url: Dispensables
+      url: Fowler/Dispensables
     - title: Couplers
-      url: Couplers
+      url: Fowler/Couplers
 
 - title: Girish Suryanarayana Smells
   url: Girish
   subnav:
     - title: Abstraction
-      url: Abstraction
+      url: Girish/Abstraction
     - title: Encapsulation
-      url: Encapsulation
+      url: Girish/Encapsulation
     - title: Modularization
-      url: Modularization
+      url: Girish/Modularization
     - title: Hierarchy
-      url: Hierarchy
+      url: Girish/Hierarchy

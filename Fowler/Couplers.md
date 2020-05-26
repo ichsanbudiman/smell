@@ -1,6 +1,6 @@
 # Couplers
 
-[Smell](.) → [Martin Fowler Code Smells](Fowler) → [Couplers](#)
+[Smell](..) → [Martin Fowler Code Smells](.) → [Couplers](#)
 
 Semua smell di dalam grup ini berkaitan dengan coupling yang tinggi.
 

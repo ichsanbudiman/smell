@@ -1,8 +1,8 @@
 # Modularization
 
-[Smell](.) → [Girish Suryanarayana et al. Code Smells](Girish) → [Modularization](#)
+[Smell](..) → [Girish Suryanarayana et al. Code Smells](.) → [Modularization](#)
 
-![Girish modularization smell](img/girish/modularization.png "Girish modularization smell")
+![Girish modularization smell](../img/girish/modularization.png "Girish modularization smell")
 
 Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang modul-modul di dalam hierarki.
 
@@ -19,7 +19,7 @@ Buku adalah konten yang berisikan sekumpulan teks paragraf. Bayangkan apa yang t
 
 [Link Video](https://www.youtube.com/watch?v=Q5Y42rdZza4&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju)
 
-![Girish Modularization principles](img/girish/modularization_principles.png "Girish modularization principles")
+![Girish Modularization principles](../img/girish/modularization_principles.png "Girish modularization principles")
 
 Secara teoretis, Sebuah class/abstraksi seharusnya memiliki **tingkat kohesi yang tinggi dan coupling yang rendah** sehingga class tersebut mempunyai tanggungjawab yang sesuai, function dan member yang saling berinteraksi satu sama lain tanpa bergantung pada class lain.
 
@@ -60,7 +60,7 @@ Smell ini terjadi jika pada data member, field, atau method yang seharusnya diku
 
 ### Penyelesaian
 
-![Refactoring move field/member/method](img/girish/modularization/broken-solution.png "Refactoring move field/member/method")
+![Refactoring move field/member/method](../img/girish/modularization/broken-solution.png "Refactoring move field/member/method")
 
 Cara paling mudahnya dalam menyelesaikan smell ini adalah dengan memindahkan member-member dari kelas yang terpisah ke class asal-nya. Jika kasus tersebut terjadi pada:
 
@@ -69,7 +69,7 @@ Cara paling mudahnya dalam menyelesaikan smell ini adalah dengan memindahkan mem
 
 ### Contoh
 
-![Struktur class dalam aplikasi device management](img/girish/modularization/broken-1.png "Struktur class dalam aplikasi device management")
+![Struktur class dalam aplikasi device management](../img/girish/modularization/broken-1.png "Struktur class dalam aplikasi device management")
 
 #### Masalah
 
@@ -88,7 +88,7 @@ Jika code tersebut digenerate secara otomatis dari generator (dari higher-level 
 
 #### Data Transfer Objects (DTOs)
 
-![Struktur DTO](img/girish/modularization/broken-dto.png "Struktur Data Transfer Object menurut Martin Fowler")
+![Struktur DTO](../img/girish/modularization/broken-dto.png "Struktur Data Transfer Object menurut Martin Fowler")
 
 Martin Fowler mendefinisikan [Data Transfer Objects](https://martinfowler.com/eaaCatalog/dataTransferObject.html) tersebut sebagai perantara data terhadap [Remote Facade](https://martinfowler.com/eaaCatalog/remoteFacade.html) (aksesor data). Jika class tersebut merupakan class yang difungsikan untuk parsing data dari/ke API website, dimana class tersebut hanya berisikan data field, setter-getter, parser (JSON/XML/AJAX ke Object), dan serializer tanpa method dan behaviour lainnya. Pada kasus tersebut, smell dapat diabaikan demi alasan mempermudah proses transfer data ke network.
 
@@ -153,7 +153,7 @@ Jika kasus ini berkaitan dengan bloated implementation, perlu dicek kompleksitas
 >
 > Betapa repotnya dan ribetnya ketergantungan hingga nyusahin orang lain. Udah gitu, nyolong sandalnya udah bagaikan *lingkaran setan* yang gak ada habis-habisnya! :anger: :imp: :sob:
 
-![Graph of cyclic dependency](img/girish/modularization/cyclic-1.png "Graph of cyclic dependency")
+![Graph of cyclic dependency](../img/girish/modularization/cyclic-1.png "Graph of cyclic dependency")
 
 Smell ini terjadi ketika dua atau lebih abstraction saling bergantung satu sama lain baik secara langsung maupun tidak langsung. Smell ini tentunya melanggar [Acyclic Dependencies Principle (ADP)](https://en.wikipedia.org/wiki/Acyclic_dependencies_principle).
 
@@ -170,7 +170,7 @@ Smell ini tidak hanya terjadi secara langsung secara inheritence dan field membe
 
 #### Contoh 1: `java.util` inter-abstractions cyclic interdepedency
 
-![Java interclass cyclic dependency](img/girish/modularization/cyclic-2.png "Java Date, Calendar, and TimeZone interclass cyclic dependency")
+![Java interclass cyclic dependency](../img/girish/modularization/cyclic-2.png "Java Date, Calendar, and TimeZone interclass cyclic dependency")
 
 Dalam buku yang ditulis oleh Girish, Girish menyinggung package `java.util` yang berisikan 6 abstractions yang sangat kompleks dan sangat cyclic ketergantungan antar classnya. Class tersebut hampir semuanya saling bergantung satu sama lain.
 
@@ -182,7 +182,7 @@ Meski secara hierarki cukup sulit dalam memberantas adanya smell pada tingkat ti
 
 #### Contoh 2: Order and TaxCalculator
 
-![Struktur class Order dan TaxCalculator](img/girish/modularization/cyclic-3.png "Cyclic dependency antara class Order dan TaxCalculator")
+![Struktur class Order dan TaxCalculator](../img/girish/modularization/cyclic-3.png "Cyclic dependency antara class Order dan TaxCalculator")
 
 Pada kasus class [Order.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/before/Order.java), [TaxCalculator.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/before/TaxCalculator.java), dan [Item.java](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/cyclic/before/Item.java), terdapat perputaran dependensi antar class. Member field class `Order` terdiri dari (composed of) beberapa `Item`, namun pada class `Order`, terdapat method `getAmount()` dimana dalam isi methodnya melakukan return `taxCal.computeAmount()`. Pada method `computeAmount()`, class tersebut mengambil semua item dalam class `Order` dan menghitung jumlah pajak dari transaksi order dengan memanggil method `calculateTax()` untuk kemudian ditotalkan dengan transaksi order tersebut dan di-return.
 
@@ -287,7 +287,7 @@ Pada kasus **Unit cycles between conceptually related abstractions**, terutama p
 
 > Toserba Pelangi merupakan toko serba ada yang menyediakan berbagai macam kebutuhan di Kerajaan Wantung mulai dari kebutuhan pokok dasar hingga perkakas, elektronik, gadget, dan furniture semuanya mereka sediakan. Bayangkan jika Toserba Pelangi hanya satu-satunya toserba di kerjaan tersebut, maka semua rakyatnya sangat amat bergantung dengan toserba tersebut. Kan ribet kalo rakyat harus melulu bergantung dengannya? :confused:
 
-![Inner and outer dependencies of a class](img/girish/modularization/hub-1.png "Inner and outer dependencies of a class")
+![Inner and outer dependencies of a class](../img/girish/modularization/hub-1.png "Inner and outer dependencies of a class")
 
 Smell ini terjadi ketika sebuah abstraksi mempunyai banyak dependensi masukan (fan-in) dan/atau abstraksi tersebut bergantung banyak pada abstraksi lain (fan-out). Smell ini sering kali memiliki kombinasi dengan smell lain seperti Large Class/Insufficient Modularization, Divergent Changes, dan Broken Modularization. Smell ini tentunya melanggar Single Responsibility Principle (SRP) karena banyaknya tanggungjawab yang dibebani olehnya.
 

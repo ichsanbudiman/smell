@@ -1,6 +1,6 @@
 # Change Preventers
 
-[Smell](.) → [Martin Fowler Code Smells](Fowler) → [Change Preventers](#)
+[Smell](..) → [Martin Fowler Code Smells](.) → [Change Preventers](#)
 
 Semua smell di dalam grup ini berkaitan dengan code yang mempersulit kita ketika ingin melakukan perubahan atau penambahan fitur.
 

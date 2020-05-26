@@ -7,4 +7,5 @@ plugins:
 defaults:
   -
     values:
+      layout: "content"
       big_header: false

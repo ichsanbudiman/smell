@@ -1,8 +1,8 @@
 # Abstraction
 
-[Smell](.) → [Girish Suryanarayana et al. Code Smells](Girish) → [Abstraction](#)
+[Smell](..) → [Girish Suryanarayana et al. Code Smells](.) → [Abstraction](#)
 
-![Girish abstraction smell](img/girish/abstraction.png "Girish abstraction smell")
+![Girish abstraction smell](../img/girish/abstraction.png "Girish abstraction smell")
 
 Semua smell di dalam grup ini berkaitan dengan kesalahan dalam mendesain abstraksi.
 
@@ -17,7 +17,7 @@ Semua smell di dalam grup ini berkaitan dengan kesalahan dalam mendesain abstrak
 
 ### Prinsip Abstraction
 
-![Girish abstraction principles](img/girish/abstraction_principles.png "Girish abstraction principles")
+![Girish abstraction principles](../img/girish/abstraction_principles.png "Girish abstraction principles")
 
 Menurut Girish Suryanarayana dkk, terdapat 5 prinsip abstraction yaitu:
 
@@ -122,7 +122,7 @@ Smell ini terjadi ketika ada sebuah method yang secara logika harusnya punya pas
 
 Contoh pasangan di buku Girish:
 
-![pair example](img/girish/abstraction/word-pair-example.png)
+![pair example](../img/girish/abstraction/word-pair-example.png)
 
 ### Contoh
 
@@ -248,7 +248,7 @@ public class Foo {
 
 Bila menggunakan Eclipse IDE, code yang sudah ditandai `deprecated` akan diberi tanda coret.
 
-![Eclipse class  deprecation](img/girish/abstraction/deprecated.png)
+![Eclipse class  deprecation](../img/girish/abstraction/deprecated.png)
 
 
 ### Tambahan

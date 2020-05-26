@@ -1,8 +1,8 @@
 # Hierarchy
 
-[Smell](.) → [Girish Suryanarayana et al. Code Smells](Girish) → [Hierarchy](#)
+[Smell](..) → [Girish Suryanarayana et al. Code Smells](.) → [Hierarchy](#)
 
-![Girish hierarchy smell](img/girish/hierarchy.png "Girish encapsulation smell")
+![Girish hierarchy smell](../img/girish/hierarchy.png "Girish encapsulation smell")
 
 Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang hierarki.
 
@@ -19,7 +19,7 @@ Semua smell di dalam grup ini berkaitan dengan kesalahan dalam merancang hierark
 
 ### Filosofi
 
-![Human Taxonomy](img/girish/hierarchy/hierarchy-philosophy.png "Linnaeus’ taxonomy showing the hierarchical classification of the human species")
+![Human Taxonomy](../img/girish/hierarchy/hierarchy-philosophy.png "Linnaeus’ taxonomy showing the hierarchical classification of the human species")
 
 Semua makhluk hidup (baik hewan, tumbuhan, manusia, bakteri, jamur, dan makhluk hidup lainnya) dikelompokkan berdasarkan klasifikasi spesies mulai dari kingdom, filum, class, ordo, family, genus, hingga spesies. Pengelompokkan makhluk hidup (taxonomy) tentunya mempermudah identifikasi makhluk hidup di muka bumi ini, termasuk manusia. Fakta menarik bahwa manusia merupakan spesies makhluk hidup bernamakan *Homo Sapiens*, dimana secara hierarki dapat ditujukan pada gambar diatas, merupakan hewan (bertulang belakang) Mamalia *ordo* Primata yang berevolusi dari saudara-saudara se-ordonya.
 
@@ -29,7 +29,7 @@ Semua ini tentunya merupakan kemajuan dalam dunia biologi berkat [Carl Linnaeus]
 
 [Link Video](https://www.youtube.com/watch?v=FvLtPJzya5o&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju)
 
-![Girish hierarchy principles](img/girish/hierarchy-principles.png "Girish encapsulation principles")
+![Girish hierarchy principles](../img/girish/hierarchy-principles.png "Girish encapsulation principles")
 
 Terdapat 5 prinsip dalam merancang hierarki:
 
@@ -84,7 +84,7 @@ Untuk menuntaskan smell tersebut, ada dua cara penyelesaian smell tersebut yaitu
 
 #### Contoh 1: `java.swing.plaf.windows.XPStyle` margin problems
 
-![Hierarchical view of 'java.swing.plaf.windows.XPStyle'](img/girish/hierarchy/hierarchy-missing-1.png "Hierarchical view of 'java.swing.plaf.windows.XPStyle'")
+![Hierarchical view of 'java.swing.plaf.windows.XPStyle'](../img/girish/hierarchy/hierarchy-missing-1.png "Hierarchical view of 'java.swing.plaf.windows.XPStyle'")
 
 Salah satu kasus yang disinggung oleh Girish adalah masalah margin dari class `java.swing.plaf.windows.XPStyle` dimana terdapat bagian code yang melakukan cek margin dari ketiga komponen tersebut yaitu `AbstractButton`, `JToolBar`, dan `JTextComponent` yang seharusnya dapat dijadikan interface tersendiri pada method `getBorderInsets(Component c, Insets insets)` sebagai berikut:
 
@@ -305,7 +305,7 @@ Smell ini terjadi ketika suatu hierarki inheritance terlalu banyak subclass tanp
 
 ### Penyelesaian
 
-![Turn flat hierarchy to tree-hierarchy](img/girish/hierarchy/hierarchy-wide-1.png "Turn flat hierarchy to tree-hierarchy")
+![Turn flat hierarchy to tree-hierarchy](../img/girish/hierarchy/hierarchy-wide-1.png "Turn flat hierarchy to tree-hierarchy")
 
 Smell wide hierarchy dapat diselesaikan dengan melakukan introduce intermediate class (baik abstract class turunan superclass maupun interface).
 
@@ -313,11 +313,11 @@ Smell wide hierarchy dapat diselesaikan dengan melakukan introduce intermediate 
 
 #### Contoh 1: Kasus class `java.util.EventObject`
 
-![The hierarchy tree of 'java.util.EventObject'](img/girish/hierarchy/hierarchy-wide-2.png "The hierarchy tree of 'java.util.EventObject'")
+![The hierarchy tree of 'java.util.EventObject'](../img/girish/hierarchy/hierarchy-wide-2.png "The hierarchy tree of 'java.util.EventObject'")
 
 Dalam buku Girish, ia menyinggung salah satu hierarki class bernama `java.util.EventObject` dimana pada class tersebut terdapat banyak turunan dimana salah satu tiga subclass yang mempunyai penamaan behaviour yang mirip yaitu `TreeExpansionEvent`, `TreeModelEvent`, dan `TreeSelectionEvent`.
 
-![TreeEvent subclasses after refactoring](img/girish/hierarchy/hierarchy-wide-3.png "TreeEvent subclasses after refactoring")
+![TreeEvent subclasses after refactoring](../img/girish/hierarchy/hierarchy-wide-3.png "TreeEvent subclasses after refactoring")
 
 Smell ketiga subclass tersebut kemudian diselesaikan dengan melakukan introduce intermediate class bernama `TreeEvent` dimana class ini merupakan subclass dari `EventObject` dan superclass dari ketiga class tersebut yang berisikan behaviour dari tree.
 
@@ -386,13 +386,13 @@ Jalan paling cepat dalam menyelesaikan speculative hierarchy adalah dengan [Coll
 
 Misal dalam pembuatan software berbasis web yang dapat mengakomodir pembuatan blog, terdapat 2 jenis anotasi blog yang dapat dilakukan dalam melakukan blogging yaitu `HTML`, `Wordpress style` yang tentunya tertulis dalam requirement.
 
-![Hierarki web software blogging](img/girish/hierarchy/hierarchy-speculative-1.png "Hierarki web software blogging")
+![Hierarki web software blogging](../img/girish/hierarchy/hierarchy-speculative-1.png "Hierarki web software blogging")
 
 Pada mula-mulanya, developer menyajikan kedua fitur tersebut dalam implementasi pembuatan post namun lama kelamaan, developer meramal akan ada anotasi baru dalam melakukan blogging yaitu `Markdown` dan `Wiki markup` sehingga developer membuatkan class spekulatif ke dalam hierarki, tak lupa dengan intermediate classnya, `MarkupStyle` untuk mengakomodir kebutuhan markup languages (bertanda bintang).
 
 Lama kelamaan, ramalan markup dalam blogging tersebut ternyata belum pernah terjadi dan terabaikan begitu saja hingga sekarang dan akhirnya, smell Speculative Hierarchy malah terjadi karena adanya class yang dipersiapkan untuk keperluan di masa yang akan mendatang namun tidak pernah terpakai sama sekali.
 
-![Buang hierarki bertanda bitang (alias spekulatif)](img/girish/hierarchy/hierarchy-speculative-2.png "Buang hierarki bertanda bitang (alias spekulatif)")
+![Buang hierarki bertanda bitang (alias spekulatif)](../img/girish/hierarchy/hierarchy-speculative-2.png "Buang hierarki bertanda bitang (alias spekulatif)")
 
 Sebagai gantinya, lakukan [Collapse Hierarchy](https://sourcemaking.com/refactoring/collapse-hierarchy) dengan buang hierarki `MarkupStyle` beserta class-classnya sehingga hierarki bersih dari class-class spekulatif.
 
