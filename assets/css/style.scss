@@ -4,13 +4,11 @@
 @import "{{ site.theme }}";
 
 .site-footer {
-  padding-top: 0.5rem;
-  margin-top: 0.5rem;
   border-top: solid 2px $hr-border-color;
 }
 
 .plain {
-  padding: 1rem;
+  padding: 1rem 2rem;
   margin: 0 0;
   padding-top: 1rem;
 }
