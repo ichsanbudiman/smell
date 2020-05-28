@@ -1,5 +1,6 @@
 ---
-  layout: "default"
+title: Code Reengineering
+layout: "default"
 ---
 
 # COMP6106 - Code Reengineering
