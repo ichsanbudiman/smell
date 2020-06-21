@@ -151,6 +151,8 @@ Jika kasus ini berkaitan dengan bloated implementation, perlu dicek kompleksitas
 
 > Ketergantungan terhadap sebuah komoditas itu kadang tidak ada habis-habisnya. Ada sebuah kisah dimana Hengga membeli sandal di toko Sandal Biru, dimana sandal tersebut kebanyakan merupakan sandal hasil colongan di tempat ibadah *(Jangan ditiru ya!)*. Ketika Hengga hendak sholat Jumat di masjid, sandal tersebut dicolong dan Hengga marah karena sandalnya kecolongan. Eh.. ketika ia pulang dengan kaki terlanjangnya, ia menyadari sandal yang ia miliki dioper kembali ke toko Sandal Biru yang lagi-lagi adalah toko yang ia beli sandalnya.
 >
+> Secara tidak langsung, Hengga tidak menyadari bahwa toko yang ia beli sandalnya melakukan tindakan yang sungguh tidak bertanggung jawab kepada konsumen karena pada dasarnya pemilik/karyawan toko tersebut bergantung pada sandal-sandal yang mereka colongi agar dapat berjualan dan mendapatkan keuntungan yang besar. Ya kira-kira prosesnya adalah: *Hengga beli sandal -> Hengga sholat jumat -> Sandal dicolong oleh karyawannya -> Orang lain beli sandal dari toko dia*
+>
 > Betapa repotnya dan ribetnya ketergantungan hingga nyusahin orang lain. Udah gitu, nyolong sandalnya udah bagaikan *lingkaran setan* yang gak ada habis-habisnya! :anger: :imp: :sob:
 
 ![Graph of cyclic dependency](../img/girish/modularization/cyclic-1.png "Graph of cyclic dependency")
@@ -277,7 +279,64 @@ Sebagai gantinya, kita dapat memindahkan method `computeAmount()` dari class Tax
 
 ### When to Ignore
 
-Pada kasus **Unit cycles between conceptually related abstractions**, terutama pada kasus class `java.util.regex`, terdapat 2 class yang saling bertukar peran dan saling bergantung satu sama lain yaitu class `Matcher` dan `Pattern`. Dalam kasus tersebut, kedua class memang diciptakan terpisah namun terpakai berbarengan. Meski praktik ini tepat untuk diterapkan, namun dalam beberapa kasus tertentu, terutama pada skala besar, class tetap harus dibagi untuk mencegah adanya masalah yang lebih kompleks.
+Pada kasus **Unit cycles between conceptually related abstractions**, terutama pada kasus cyclic antar class dalam package `java.util.regex`, terdapat 2 class yang saling bertukar peran dan saling bergantung satu sama lain yaitu class `Matcher` dan `Pattern`. Dalam kasus tersebut, kedua class memang diciptakan terpisah namun terpakai berbarengan. Meski praktik ini tepat untuk diterapkan, namun dalam beberapa kasus tertentu, terutama pada skala besar, class tetap harus dibagi untuk mencegah adanya masalah yang lebih kompleks.
+
+Tentunya akan menjadi masalah yang sangat besar **jika dependency antar class tersebut terjadi antar lintas package** yang membuat developer semakin kesulitan mengelola berbagai macam package yang mereka urusi.
+
+### Catatan Tambahan
+
+Pada beberapa bahasa pemrograman, kasus Cyclic Dependency/Hierarchy yang terjadi pada class-class lintas package dapat menyebabkan code/class/module tidak dapat dieksekusi karena adanya cyclic dependency yang terjadi.
+
+Salah satu bahasa pemrograman yang melarang keras adanya Cyclic Dependency/Hierarchy adalah **Go Lang** dimana pada bahasa pemrograman tersebut **MELARANG** adanya cycle imports dimana ketika kedua class tersebut saling mengimport package tersebut, maka terjadi error yang cukup fatal hingga menimbulkan compiler error.
+
+```go
+package ara
+
+import {
+  "example.com/user/modul/burung" // lot of function required
+}
+
+func length(str string) {
+  return len(r);
+}
+
+func eksekusi(b burung.Burung) {
+  // do something here
+}
+```
+
+Package `ara` bergantung pada `burung` sedangkan modul burung hanya mengambil satu function dari `ara` meski terjadi lintas package.
+
+```go
+package burung
+
+import {
+  "example.com/user/modul/ara" // only pick one of function
+}
+
+type Burung struct {
+  name string,
+  species string,
+  age int,
+  gender bool
+}
+
+func foo() { ... }
+
+func bar() { ... }
+
+func hantam() { ... }
+
+func sikat() { ... }
+
+func tendang() { ... }
+```
+
+Mengikuti paradigma *Acyclic Dependencies Principle (ADP)*, kita dapat memecahkan module tersebut secara terpisah yaitu pada modul `ara` yang dapat dikeluarkan function-function ke module baru agar tidak menganggu modularitas dari package yang akan dipakai oleh `burung` dan package-package lainnya.
+
+Selain itu, beberapa framework bahasa pemrograman baik [NodeJS](https://spin.atomicobject.com/2018/06/25/circular-dependencies-javascript/), [Angular](https://blogpedia.org/blogs/17/circular-dependency-warnings-in-angular), [TypeScript](https://medium.com/visual-development/how-to-fix-nasty-circular-dependency-issues-once-and-for-all-in-javascript-typescript-a04c987cf0de), dan [ECMAScript (ES)](https://medium.com/angular-in-depth/how-to-break-a-cyclic-dependency-between-es6-modules-fd8ede198596) juga menerapkan warning bagi developer jika kedapatan melakukan import module yang terjadi secara cyclic agar dapat memisahkan class/module lintas package yang tentunya dapat mengacaukan jalannya framework.
+
+Referensi: [Mantesh Jaihal - dealing with import cycle in go](https://mantish.com/post/dealing-with-import-cycle-go/)
 
 
 ## Hub-like Dependencies
@@ -285,7 +344,7 @@ Pada kasus **Unit cycles between conceptually related abstractions**, terutama p
 [Link Video](https://www.youtube.com/watch?v=ImUM8T-1fy4&list=PLG_Cu5FmqSk2KHT6lXngRvcOmOzuk4_ju) |
 [Materi](https://github.com/akmalrusli363/smell/tree/master/src/girish/modularization/hub)
 
-> Toserba Pelangi merupakan toko serba ada yang menyediakan berbagai macam kebutuhan di Kerajaan Wantung mulai dari kebutuhan pokok dasar hingga perkakas, elektronik, gadget, dan furniture semuanya mereka sediakan. Bayangkan jika Toserba Pelangi hanya satu-satunya toserba di kerjaan tersebut, maka semua rakyatnya sangat amat bergantung dengan toserba tersebut. Kan ribet kalo rakyat harus melulu bergantung dengannya? :confused:
+> Toserba Pelangi merupakan toko serba ada yang menyediakan berbagai macam kebutuhan di Kerajaan Wantung mulai dari kebutuhan pokok dasar hingga perkakas, elektronik, gadget, dan furniture semuanya mereka sediakan. Bayangkan jika Toserba Pelangi hanya satu-satunya toserba di kerajaan tersebut, maka semua rakyatnya sangat amat bergantung dengan toserba tersebut. Kan ribet kalau misalnya toserba tersebut merugi lalu bangkrut, kemana rakyat harus beli barang? :confused:
 
 ![Inner and outer dependencies of a class](../img/girish/modularization/hub-1.png "Inner and outer dependencies of a class")
 
