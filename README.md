@@ -1,5 +1,7 @@
 # COMP6106 - Code Reengineering
 
+[Sumber Repository (mrp130/smell)](https://github.com/mrp130/smell/) | [Wiki](https://github.com/akmalrusli363/smell/wiki) | [GitHub Pages](https://akmalrusli363.github.io/smell/)
+
 Repository ini dibuat untuk keperluan materi online class COMP6106 - Code Reengineering, kelas LE01.
 Materi COMP6106 bersumber dari:
 
