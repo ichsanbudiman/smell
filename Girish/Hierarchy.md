@@ -52,9 +52,9 @@ Berdasarkan pada pengamatan hierarchy smell, terdapat pelanggaran prinsip hierar
 | Speculative Hierarchy | Apply meaningful generalization | Adanya class yang dibuatkan oleh developer karena alasan spekulatif untuk memenuhi kasus tertentu | Speculative Generalities |
 | Deep Hierarchy | Apply meaningful generalization | Pembuatan hierarki terlalu besar dan terlalu dalam subclass levelnya. | - |
 | Rebellious Hierarchy | Ensure substitutability | Subclass menolak behaviour dari superclass | Refused Bequest |
-| Broken Hierarchy | Ensure substitutability | Hubungan relationship antar superclass dan subclass terputus meski ada inheritance | ? |
-| Multipath Hierarchy | Avoid redundant paths | Subclass (cucu) mengambil jalan pintas inheritance ke base class | ? |
-| Cyclic Hierarchy | Ensure proper ordering | Superclass bergantung pada subclass | Feature Envy |
+| Broken Hierarchy | Ensure substitutability | Hubungan relationship antar superclass dan subclass terputus karena ada pemaksaan hubungan inheritance | Refused Bequest (ISP) |
+| Multipath Hierarchy | Avoid redundant paths | Subclass (cucu) mengambil jalan pintas inheritance ke base class | - |
+| Cyclic Hierarchy | Ensure proper ordering | Superclass bergantung pada subclass | Feature Envy, Inappropriate Intimacy |
 
 
 ## Missing Hierarchy
@@ -410,7 +410,7 @@ Sebagai jalan penyelesaiannya, lakukan [Collapse Hierarchy](https://sourcemaking
 - **List-like inheritance hierarchies**: Dalam hierarki terdapat beberapa class yang dipersiapkan untuk keperluan spekulatif, seolah-oleh berisikan list kosong dalam hierarki.
 
 
-## Deep Hierarchy *(coming soon)*
+## Deep Hierarchy
 
 [Link Video](#) |
 [Materi](#)
@@ -419,8 +419,46 @@ Sebagai jalan penyelesaiannya, lakukan [Collapse Hierarchy](https://sourcemaking
 >
 > Malah jadi kepikiran lagi, ini kita main game "Life Society" biar bisa gaet banyak orang atau malah pengen jadi kolekor hewan peliharaan? :joy::joy_cat:
 
+Smell ini hampir sama dengan Speculative Hierarchy, namun smell ini masih mempunyai pemakaian class dan inheritance yang terjadi dalam hierarki. Smell ini terjadi karena hierarki dibuat terlalu dalam dikarenakan terlalu banyaknya inheritance maupun terlalu banyak intermediate class karena generalisasi yang berlebihan.
 
-## Rebellious Hierarchy *(coming soon)*
+Smell ini tentunya melanggar aturan hierarki yaitu "Apply meaningful generalization" dimana pada smell ini terlalu banyak generalisasi yang diaplikasikan pada hierarki sehingga menimbulkan adanya superclass yang seharus tidak perlu dipecahkan.
+
+### Penyebab
+
+- **Excessive focus on reuse**: Developer terlalu nafsu keberadaan generalization yang mempermudah developer untuk memanfaatkan kembali code tersebut untuk dipakai oleh class lain.
+- **Speculative generalization**: Developer menambahkan supertype terlalu banyak demi keperluan di waktu yang mendatang agar supertype tersebut dipakai. Namun kenyataannya, penambahan superclass yang berlebihan menyebabkan hierarki tersebut semakin dalam.
+
+### Penyelesaian
+
+- **Collapse Hierarchy**: Jika ada class yang mempunyai member yang dapat diaplikasikan namun hanya diturunkan pada class bawahannya saja, lakukan collapse hierarchy dengan mengabungkan class tersebut ke superclass/subclass.
+- **Replace class as annotation**: Jika pada class tersebut merupakan class kosong, kita dapat mengubah class kosongan sebagai annotation untuk diaplikasikan oleh subclassnya.
+
+### Contoh
+
+Misal pada sebuah hierarki dalam game MineBlock bernama `Entity` yang terdiri atas `Particle`, `Mob (Creature)`, dan `Projectile` dimana masing-masing class mempunyai subclass yang memiliki peran yang berbeda hingga pada tingkatan creature.
+
+![Hierarchy of entity and creatures](../img/girish/hierarchy/hierarchy-deep-1.png "Hierarchy of entity and creatures")
+
+Pada kasus ini disebutkan bahwa dalam pengelompokkan hierarki pada bagian creature terdapat intermediate type yang seharusnya tidak perlu dibuatkan yaitu:
+
+- `Farmable->Stock->(Livestock->(Cow, Pig), Poultry->(Chicken))`
+- `Flying->Winged->(Dragon)`
+- `Undead->((Ghost->Spook), (Human->(Skull, Zombie)))`
+
+Dimana pada ketiga intermediate type tersebut seharusnya dapat dicollapse alias disatukan sebagai class tersendiri untuk mencegah adanya speculative hierarchy meski class tersebut meliputi adanya member yang dapat dipisahkan demi keperluan tambahan creature baru di waktu yang akan mendatang.
+
+![Hierarchy after some deep hierarchy collapses](../img/girish/hierarchy/hierarchy-deep-2.png "Hierarchy after some deep hierarchy collapses")
+
+### Julukan
+
+- **Distorted hierarchy**: Smell ini terjadi ketika inheritance hierarchy terlalu dalam dan ramping *(too narrow and deep)*.
+
+### When to Ignore
+
+Pada kasus Framework dan Library, hierarchy tersebut sengaja dibuat cukup dalam diciptakan untuk mempermudah pemakaian kembali oleh class lain, terutama bagi pemakai framework dan library.
+
+
+## Rebellious Hierarchy
 
 [Link Video](#) |
 [Materi](#)
@@ -429,30 +467,360 @@ Sebagai jalan penyelesaiannya, lakukan [Collapse Hierarchy](https://sourcemaking
 >
 > Saya sih bilang ini terlalu tega ke orang yang membuat kebingungan orang lain dari **air AWUA isi air aki** yang dikira isinya air AWUA beneran!
 
+Smell ini hampir sama dengan smell [Refused Bequest](Object-Orientation-Abusers#refused-bequest) dimana pada smell ini lebih merujuk pada pelanggaran Interface Segregation Principles (ISP) dimana terdapat penolakan warisan antar supertype dengan subtype baik dengan exception, null, ataupun dibiarkan kosong begitu saja.
 
-## Broken Hierarchy *(coming soon)*
+Object konteks yang dilanggar pada smell ini ada pada pembagian method Interface yang tidak sesuai sehingga terdapat beberapa class yang berani melanggar bahkan menolak inheritance dari interface tersebut.
+
+### Penyebab
+
+- **Creating a hierarchy rooted in an existing concrete class**: Pembuatan hierarki dari class yang salah (terutama concrete class) menyebabkan smell dimana satu/lebih class menolak inheritance yang seharusnya tidak terjadi dalam inheritance.
+- **Creating "swiss-knife" types**: Developer menciptakan supertype yang menyediakan segala macam kebutuhan, yang terkadang tidak terpakai bahkan ditolak oleh beberapa class tertentu.
+
+### Penyelesaian
+
+Ada dua cara penyelesaian kasus smell rebellious hierarchy, yaitu:
+
+- Jika method tersebut terpakai pada subtype tertentu, gunakan [move method](refactoring.guru/move-method) untuk memindahkan method ke subclass yang diinginkan.
+- Jika method tersebut ditolak oleh beberapa subtype saja, lakukan introduce intermediate class untuk menurunkan method yang terpakai pada class tertentu dan pindahkan inheritance ke intermediate class tersebut.
+- Jika method tersebut ditolak oleh semua subtype, buang method dari supertype.
+
+### Contoh
+
+Salah satu kasus dimana terdapat interface `Shape` dimana interface ini berisikan method-method yang akan dipakai oleh object geometri.
+
+```java
+public interface Shape {
+  public int luas();
+  public int keliling();
+  public int volume();
+}
+
+public class Rectangle implements Shape {
+  int w, h;
+
+  @Override
+  public int luas() {
+    return w * h;
+  }
+
+  @Override
+  public int keliling() {
+    return 2 * (w + h);
+  }
+
+  @Override
+  public int volume() {
+    throw new UnsupportedMethodException("Not implemented yet!");
+  }
+}
+
+public class Cube extends Shape {
+  int l, w, h;
+
+  @Override
+  public int luas() {
+    return 2 * (l * w + l * h + w * h);
+  }
+
+  @Override
+  public int keliling() {
+    return 4 * (l + w + h);
+  }
+
+  @Override
+  public int volume() {
+    return l * w * h;
+  }
+}
+```
+
+Pada contoh code tersebut, terdapat pelanggaran dimana class `Rectangle` harus menerima method-method penghitung volume padalah objek geometri tersebut berupa 2 dimensi, sehingga class tersebut menolak method `volume` dikarenakan sifat dua dimensi yang dimilikinya. Sebaliknya, pada class `Cube`, semua method dalam interface tersebut terimplementasi dengan baik tanpa hambatan.
+
+Lain halnya dengan interface yang memang dibuatkan sebagai fondasi atas object geometri yang akan diaplikasikan kepada class-classnya.
+
+Sebagai penyelesaiannya, pecahkan interface menjadi 2 bagian, yaitu `Shape2D` dan `Shape3D` sehingga class `Rectangle` dapat menerima inheritance yang seharusnya tanpa harus menolak method-method lainnya.
+
+```java
+public interface Shape2D {
+  public int luas();
+  public int keliling();
+}
+
+public interface Shape3D implements Shape2D {
+  public int volume();
+}
+
+public class Rectangle implements Shape2D {
+  int w, h;
+
+  @Override
+  public int luas() {
+    return w * h;
+  }
+
+  @Override
+  public int keliling() {
+    return 2 * (w + h);
+  }
+}
+
+public class Cube extends Shape3D {
+  int l, w, h;
+
+  @Override
+  public int luas() {
+    return 2 * (l * w + l * h + w * h);
+  }
+
+  @Override
+  public int keliling() {
+    return 4 * (l + w + h);
+  }
+
+  @Override
+  public int volume() {
+    return l * w * h;
+  }
+}
+```
+
+Jika ada method tambahan yang perlu ditambahkan pada interface dan class implementasi memerlukan rumus khusus yang tidak diperuntukkan pada class lainnya, maka method baru dapat ditambahkan di interface turunannya dengan keyword `implements`.
+
+### Julukan
+
+- [**Refused Bequest**](Object-Orientation-Abusers#refused-bequest): Smell ini terjadi karena penolakan inheritance dari subtype terhadap supertype. Smell ini dapat melanggar Interface Segregation Principle (ISP) maupun Liskov Substitution Principle (LSP) dalam object konteks method yang dilanggarnya.
+- **Refused parent bequest**: Subclass menurunkan interface method secara private atau menurunkan method tanpa behaviour.
+- **Naughty children**: Subclass tidak mau menerima method yang diterima dari superclass.
+- **Premature interface abstraction**: Jumlah method dalam inheritance terlalu banyak sehingga tidak semua class turunannya menerima method tersebut.
+
+### When to Ignore
+
+#### Yet-to-be implemented functionality
+
+Pada kasus ini salah satu class turunannya sengaja mengosongkan method yang diterima dari abstract class karena keterbatasan waktu/akan dikerjakan di lain hari.
+
+![EditorKit hierarchy](../img/girish/hierarchy/hierarchy-rebellious-3.png "EditorKit hierarchy")
+
+Salah satu contohnya adalah class `javax.swing.text.rtf.RTFEditorKit`, dimana pada class tersebut terdapat method `write()` yang diturunkan dari `EditorKit` ditolak dengan melemparkan `IOException` dengan alasan karena masalah keterbatasan waktu.
+
+```java
+public void write(Writer out, Document doc, int pos, int len) throws IOException, BadLocationException {
+  throw new IOException(“RTF is an 8-bit format”);
+}
+```
+
+#### Performance considerations
+
+Beberapa hierarchy class terkadang memiliki class dimana class tersebut menolak beberapa method inheritance dari parentnya dengan alasan performa sehingga method dalam class tersebut dibiarkan kosong begitu saja.
+
+Salah satu contoh kasusnya adalah hierarki class `java.swing.JLabel` terhadap class turunannya, `DefaultListCellRenderer`, `DefaultTableCellRenderer`, dan `DefaultTreeCellRenderer` dimana ketiga class tersebut menolak kelima method yaitu `invalidate()`, `validate()`, `revalidate()`, `repaint()`, `isOpaque()`, dan `firePropertyChange()` dengan membiarkannya kosong dengan alasan sebagai berikut:
+
+> “Implementation Note: This class overrides invalidate, validate, revalidate, repaint, isOpaque, and firePropertyChange solely to improve performance. If not overridden, these frequently called methods would execute code paths that are unnecessary for the default list cell renderer. If you write your own renderer, take care to weigh the benefits and drawbacks of overriding these methods.”
+
+Hal itu tentunya ditujukan dengan segi performance karena method yang dipanggil dari Default Renderer tidak berguna pada renderer tersebut sehingga mengosongkan method yang diturunkan dapat menghemat resources dari ketiga class tersebut.
+
+#### Avoiding complex design
+
+Pada beberapa kasus smell hierarki ini, disebutkan bahwa terdapat beberapa class yang sengaja membiarkan method tersebut kosong ataupun ditolak dengan berbagai cara memang telah dipertimbangkan sedemikian rupa agar tidak terjadi ledakan class seperti yang direferensikan pada smell [Missing Encapsulation](Encapsulation#missing-encapsulation).
+
+Beberapa class dalam Java, terutama class `UnmodifiableList` dan `UnmodifiableMap` dalam JDK7 sengaja menolak ketiga method dengan kemampuan merubah List dan Map yaitu `add()`, `set()`, dan `remove()` dengan pertimbangan dari designer dan developer yaitu untuk mencegah ledakan class dan interface dalam JDK ketika class tersebut dikelola lebih jauh lagi.
+
+
+## Broken Hierarchy
 
 [Link Video](#) |
 [Materi](#)
 
 > POKOKNYA KITA BERDUA CERAI HARI INI JUGA :broken_heart:! Udah capek-capek pasangan suami-istri ingin punya anak, eh.. diceraikan dan anaknya gak boleh tahu dosa-dosanya suami-istrinya sendiri! Kan tega sampai bikin anaknya gak mau tahu sama orang tuanya sendiri dan ujung-ujungnya durhaka sama orang tua sendiri!
 
+Smell ini terjadi karena hubungan antar superclass dengan subclass yang tidak bersifat **`is-a`** yang mengakibatkan hubungan hierarki tersebut terputus.
 
-## Multipath Hierarchy *(coming soon)*
+Ada tiga jenis broken hierarchy:
+
+1. Hubungan superclass dan subclass yang seharusnya **`is-a`** (yang dapat diturunkan dengan keyword `extends` atau `implements`) malah diubah relasinya sebagai **`has-a`** sehingga relasi antar kedua class terputus.
+2. Hubungan base class dengan implementer yang seharusnya **`has-a`** (hubungan delegatif/aggregates) malah dipaksakan untuk berelasi sebagai **`is-a`** (inhertied superclass-subclass).
+3. Hubungan base class dan subclass yang terbalik, sehingga terdapat hierarki yang seharusnya tidak mendapatkan peran yang seharusnya malah harus menerimanya.
+
+### Penyebab
+
+- **Inheritance for implementation reuse**: Inheritance dipakai untuk penerapan reusability untuk menurunkan method-method supertype melalui hubungan **`is-a`** namun dengan cara yang salah.
+- **Incorrect application of inheritance**: Penerapan inheritance yang salah bahkan dipaksakan menyebabkan hubungan relasi antar class menjadi terputus.
+
+### Penyelesaian
+
+Ada beberapa cara penyelesaian kasus smell broken hierarchy, yaitu:
+
+- Replace inheritance with delegation, yaitu mengubah hubungan **`is-a`** yang dipaksakan menjadi **`has-a`** (delegasi).
+- Menerapkan pattern yang sesuai dengan hierarki yang terputus misalnya composite pattern.
+- Membalikkan hubungan inheritance.
+- Introduce common supertype sesuai konteks yang diperlukan.
+
+### Contoh
+
+**Vector** merupakan dynamic array dengan kemampuan push/pop pada index yang diinginkan user sedangkan **Stack** merupakan linked list yang bersifat (LIFO/Last In First Out) dimana Stack hanya dapat melakukan push/pop/peek pada titik tertentu.
+
+Secara konseptual, hubungan **Vector** dan **Stack** hanya boleh terjadi secara deklaratif/delegatif (`has-a`) namun dipaksakan sebagai hubungan inheritance (`is-a`) yang sebagian method dari **Vector** ditolak **Stack** itu sendiri.
+
+![Vector and Stack inheritancy](../img/girish/hierarchy/hierarchy-broken-1.png "Vector and Stack inheritancy")
+
+Dalam class Stack, terdapat fungsi standar sebuah stack LIFO yaitu pop, push, dan peek.
+
+```java
+public void push(E data) {
+  this.add(data);
+}
+
+public void pop() {
+  this.removeElementAt(this.size()-1);
+}
+
+public E peek() {
+  return this.elementAt(this.size()-1);
+}
+```
+
+Namun dalam class Vector, beberapa method yang seharusnya diaplikasikan dari Vector sebagai berikut:
+
+```java
+@Override
+public synchronized void add(int index, E element) {
+  return super.add(index, element);
+}
+
+@Override
+public synchronized E remove(int index) {
+  return super.remove(index);
+}
+```
+
+Malah ditolak oleh Stack dengan throw exception/return null karena tidak boleh return sembarang value.
+
+```java
+/*
+* you cannot add or remove by index, use push/pop instead
+*/
+@Override
+public synchronized void add(int index, E element) {
+  throw new Exception("You can't add element at random index!");
+}
+
+@Override
+public synchronized E remove(int index) {
+  return null;
+}
+```
+
+Smell ini tentunya saling bersebrangan dengan **Rebellious Hierarchy** namun disebabkan oleh hubungan relasi yang salah antara superclass dan subclass yang salah dan hubungan `has-a` yang dipaksakan sebagai hubungan `is-a` sehingga terdapat beberapa method ditolak oleh subclass.
+
+![Vector and Stack delegation](../img/girish/hierarchy/hierarchy-broken-2.png)
+
+Sebagai solusinya, ubah hubungan `is-a` yang terjadi antara kedua class tersebut sebagai hubungan delegatif (`has-a`) sehingga `Stack` dapat memanfaatkan `Vector` sebagai media penampungan dan mendelegasikan setiap kebutuhan dari `Stack` kepada `Vector`, namun tidak terakses oleh class lain.
+
+```java
+public class Stack<E> {
+  private Vector<E> stack = new Vector<>();
+
+  public void push(E data) {
+    stack.add(data);
+  }
+
+  public void pop() {
+    stack.removeElementAt(stack.size()-1);
+  }
+
+  public E peek() {
+    return stack.elementAt(stack.size()-1);
+  }
+}
+```
+
+Pada class `Vector` hasil perubahan relationship, fungsi-fungsi Stack LIFO yaitu pop, push, dan peek didelegasikan ke Vector untuk add/remove/get object sesuai kebutuhan `Stack` itu sendiri.
+
+
+## Multipath Hierarchy
 
 [Link Video](#) |
 [Materi](#)
 
-> Tamika adalah anaknya pak Joni & ibu Mimi serta cucunya kakek Sugiono. Tamika sendiri dilahirkan dan diwariskan oleh ayah dan ibunya. Namun pada suatu ketika ia ingin belajar dari kakeknya sehingga ia nekat ambil jalan pintas ilmunya dari Kakek Sugiono padahal bapaknya Tamika sendiri adalah anaknya Kakek Sugiono yang ilmunya sama-sama diwariskan darinya. Lah kalau ilmunya bapaknya sendiri datang dari kakeknya, kenapa gak belajar langsung aja dari bapaknya? Kan gak perlu capek-capek cari ilmu ke kakek Sugiono hanya ingin cepat jago. :joy:
+> Tamika adalah anaknya pak Joni & ibu Mimi serta cucunya kakek Sugiono. Tamika sendiri dilahirkan dan diwariskan oleh ayah dan ibunya. Namun pada suatu ketika ia ingin belajar dari kakeknya sehingga ia nekat ambil jalan pintas ilmunya *(jalan ninja)* dari Kakek Sugiono padahal bapaknya Tamika sendiri adalah anaknya Kakek Sugiono yang ilmunya sama-sama diwariskan darinya. Lah kalau ilmunya bapaknya sendiri datang dari kakeknya, kenapa gak belajar langsung aja dari bapaknya? Kan gak perlu capek-capek cari ilmu ke kakek Sugiono hanya ingin cepat jago. :joy:
+
+![Multipath Hierarchy](../img/girish/hierarchy/hierarchy-multipath-1.png "Multipath Hierarchy")
+
+Smell ini terjadi ketika terdapat class yang mengambil jalan pintas inheritance ke base class tertingginya padahal ia sendiri merupakan keturunan dari base class itu sendiri. Hal tersebut tentunya mengakibatkan adanya *inheritance redundancy* dikarenakan jalan pintas inheritance dari class ke base class tertingginya.
+
+Smell ini tidak dapat disandingkan dengan **Diamond Hierarchy** dimana pada kasus tersebut, sebuah class pada hierarki tersebut merupakan turunan dari 2 type yang sama-sama diwariskan dari base type itu sendiri. Pada kasus **Diamond Hierarchy**, menghilangkan salah satu inheritancy dari class tersebut dapat merubah isi struktural dari class tersebut.
+
+### Penyebab
+
+- **Overlooking existing inheritance paths**: Terlalu niat melihat jalur inheritance sehingga mengambil jalan pintas padahal sama-sama keturunan dari base type itu sendiri.
+
+### Penyelesaian
+
+![Remove redundant inheritance](../img/girish/hierarchy/hierarchy-multipath-2.png "Remove redundant inheritance")
+
+Buang implementasi turunan base class tertingginya dari class tersebut jika ada inheritance base class yang merupakan turunan dari base class tertingginya.
+
+### Contoh
+
+Misal dalam class `java.util.concurrent.ConcurrentLinkedQueue` dimana class tersebut mengimplementasikan interface `java.util.Queue`. Namun class tersebut melakukan extend pada `java.util.AbstractQueue` dimana class tersebut merupakan implementasi dari interface `java.util.Queue` sehingga implementasi interface `java.util.Queue` menjadi redundant karena sudah diturunkan oleh `AbstractQueue`.
+
+Cara termudah dan paling instan dalam menyelesaikan kasus smell ini adalah dengan membuang jalan pintas inheritance yaitu `java.util.Queue` sehingga tidak ada jalan pintas inheritance dari hierarki tersebut.
+
+### Julukan
+
+- **Degenerate inheritance**: Class diturunkan langsung dan tidak langsung dari superclass (baik melalui intermediate class maupun langsung kepada superclassnya).
+- **Repeated inheritance**: Class diturunkan dari turunannya yang sama berulang kali melalui jalur yang berbeda.
 
 
-## Cyclic Hierarchy *(coming soon)*
+## Cyclic Hierarchy
 
 [Link Video](#) |
 [Materi](#)
 
 > Lagi.. Mama-nya minta duit dulu sama anaknya.. Emangnya mama ngutang apa sampai harus minta duit anaknya? Kan mama yang kasih jatah uang jajan sembari biayai kuliah dan kos aku selama kuliah? :frowning:
 
+Smell ini terjadi karena adanya perputaran/cyclic dependency (baik langsung maupun tidak langsung) antara superclass dengan subclass.
+
+Smell ini dapat terjadi karena:
+
+- Supertype mempunyai object dari salah satu subtype/turunannya.
+- Supertype mempunyai hubungan tipe data salah satu subtype/turunannya.
+- Supertype mengakses data members atau memanggil method dalam subtype/turunannya.
+
+### Penyebab
+
+- **Improper assignment of responsibilities**: Kurang jelasnya dalam menentukan tanggung jawab terhadap class-class dalam hierarki dimana pada kasus tertentu, superclass memanggil subclass karena adanya pertanggungjawaban superclass dari subclass.
+- **Hard-to-visualize indirect dependencies**: Sulitnya melihat dependensi tidak langsung menyebabkan developer menganggap bahwa class-class dalam hierarki tersebut tampak tidak bergantung secara langsung, padahal masih ada cyclic dalam hierarki karena adanya dependensi berantai antar class dari superclass terhadap subclass.
+
+### Penyelesaian
+
+Ada beberapa cara penyelesaian Cyclic Hierarchy diantaranya:
+
+- Buang referensi penghubung antar keduanya jika hubungan superclass dan subclass terasa tidak penting/diperlukan.
+- Usahakan untuk move method/extract class agar tidak terjadi cyclic antar kedua class.
+- Gunakan State patterns atau Strategy patterns jika superclass memerlukan bantuan dari subclass.
+- Gabungkan jika superclass dan subclass saling bergantung satu sama lain.
+
+### Contoh
+
+![Button cyclic hierarchy](../img/girish/hierarchy/hierarchy-cyclic-1.png "Button cyclic hierarchy")
+
+Pada kasus hierarki antara `AbstractButton` sebagai superclass dan `JButton` sebagai subclass, terdapat kasus dimana `AbstractButton` bergantung pada `JButton` meski tidak langsung. Kasus ini terjadi karena terdapat method dalam `AbstractButton` yang memanggil `SwingUtilities`, dimana class tersebut secara tidak langsung bergantung pada `JRootPane` yang mempunyai elemen `JButton`.
+
+Meski ketergantungan class ini boleh dikatakan terjadi secara tidak langsung, namun hal ini tidak boleh disepelekan dimana pada kasus ini dapat berakibat Cyclic Dependency antar superclass dan subclass.
+
+Sebagai jalan penyelesaiannya, terdapat salah satu static method dalam class `SwingUtilities` yang mengakses `JRootPane`, yaitu `SwingUtilities.getRootPane()` yang sebetulnya dapat dipisahkan/diekstrak ke class lain *(misal: ComponentUtilities)* sehingga dependensi superclass terhadap subclass dapat terpecahkan.
+
+![Button hierarchy after cyclic fixes](../img/girish/hierarchy/hierarchy-cyclic-2.png "Button hierarchy after cyclic fixes")
+
+### Julukan
+
+- **Knows of derived**: Terjadi ketika superclass mempunyai dependensi (baik langsung/tidak langsung) terhadap turunan saat compile (baik melalui `import`, parameter, deklarasi, maupun object).
+- **Curious superclasses**: Superclass memanggil/mempunyai member dari subclass.
+- **Inheritance/reference cycles**: Superclass mempunyai hubungan terhadap turunannya (sehingga terjadi inheritance/reference cyclics).
+- **Descendant reference**: Class mempunyai hubungan terhadap turunannya melalui hubungan asosiasi, dependensi, attribute, atau parameter.
+- **Superclass uses subclass during initialization**: Class memanggil class turunannya saat inisialisasi.
+- **Inheritance loops**: Smell terjadi (misal terdapat class A, B, and C) dimana A merupakan turunan dari C, B merupakan turunan dari A, dan C merupakan turunan dari B meski tidak terjadi secara langsung antara A dan B.
 
 ---
 
