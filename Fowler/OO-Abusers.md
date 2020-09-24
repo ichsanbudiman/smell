@@ -219,7 +219,7 @@ Untuk contoh kasus ini, kita melakukan [Replace Inheritance with Delegation](htt
 
 Hubungan `is-a` tidak cocok untuk Stack dan Vector. Kita ubah hubungannya menjadi hubungan `has-a`.
 
-class [Stack](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequestafter/Stack.java) menyimpan java.util.Vector sebagai field-nya. Pop, push, dan peek dilakukan dengan Vector ini.
+class [Stack](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest/after/Stack.java) menyimpan java.util.Vector sebagai field-nya. Pop, push, dan peek dilakukan dengan Vector ini.
 
 ```java
 public class Stack<E> {
@@ -239,11 +239,152 @@ public class Stack<E> {
 }
 ```
 
+
+### Refused Bequest (Interface Segregation Violation)
+
+[before](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest/before) |
+[after](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest/after)
+
+Dalam contoh kasus pertama, terdapat class [Stack.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest/before/Stack.java) yang melakukan extends terhadap `java.util.Vector`.
+
+Di dalam class [Stack](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest/before/Stack.java), terdapat fungsi standar sebuah stack LIFO yaitu: pop, push, dan peek.
+
+```java
+public void push(E data) {
+  this.add(data);
+}
+
+public void pop() {
+  this.removeElementAt(this.size()-1);
+}
+
+public E peek() {
+  return this.elementAt(this.size()-1);
+}
+```
+
+Namun, terdapat satu masalah. `java.util.Vector` memiliki banyak fungsi yang memungkinkan class melakukan manipulasi data di dalam array (misalnya bisa hapus data menggunakan indeks). Tentu saja ini melanggar prinsip LIFO (Last-In First-Out).
+
+![Wrong inheritancy of animal and chair](https://refactoring.guru/images/refactoring/content/smells/refused-bequest-02.png "Ada penolakan inheritance dari kursi terhadap hewan")
+
+Oleh karena itu, di class Stack, diakali dengan cara melakukan override pada masing-masing fungsi `java.util.Vector` yang tidak ingin digunakan, dan kita menghilangkan kinerjanya dengan cara menghapus pemanggilan `super`.
+
+Sebelumnya seperti ini:
+```java
+@Override
+public synchronized E remove(int index) {
+  return super.remove(index);
+}
+```
+
+Return super kita ubah menjadi return null. Sehingga remove by index tidak terjadi.
+
+```java
+/*
+* you cannot remove by index, use pop instead
+*/
+@Override
+public synchronized E remove(int index) {
+  return null;
+}
+```
+
+Hal ini menjadi code smell **Refused Bequest**, karena class Stack menolak warisan dari class Vector. Hal ini tentunya melanggar prinsip Interface Segregation Principle yang mengharuskan pembagian method dalam abstrak terbagi rata sesuai kebutuhan subclassnya dan tidak boleh ditolak oleh subclass tersebut.
+
+#### Penyelesaian
+
+![Change inheritance into delegation](https://refactoring.guru/images/refactoring/content/smells/refused-bequest-03.png "Pindahkan arah hierarki dan gantikan inheritance dengan delegasi!")
+
+Untuk contoh kasus ini, kita melakukan [Replace Inheritance with Delegation](https://sourcemaking.com/refactoring/replace-inheritance-with-delegation).
+
+Hubungan `is-a` tidak cocok untuk Stack dan Vector. Kita ubah hubungannya menjadi hubungan `has-a`.
+
+class [Stack](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest/after/Stack.java) menyimpan `java.util.Vector` sebagai field-nya. Pop, push, dan peek dilakukan dengan Vector ini.
+
+```java
+public class Stack<E> {
+  private Vector<E> vector = new Vector<>();
+
+  public void push(E data) {
+    vector.add(data);
+  }
+
+  public void pop() {
+    vector.removeElementAt(vector.size()-1);
+  }
+
+  public E peek() {
+    return vector.elementAt(vector.size()-1);
+  }
+}
+```
+
+### Refused Bequest (Liskov Substitution Violation)
+
+[before](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/before) |
+[after](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/after)
+
+Pada kasus pelanggaran LSP, disebutkan bahwa terdapat method turunan yang mendelegasikan ke method turunan lainnya.
+
+Perhatikan contoh [Square.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/before/Square.java) di package [`before`](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/before).
+
+```java
+@Override
+public void setWidth(float width) {
+  this.setHeight(width);
+}
+
+@Override
+public void setHeight(float height) {
+  this.height = this.width = height;
+}
+```
+
+Karena class Square memiliki invariant width dan height harus sama, maka class Square pun melakukan overriding seperti diatas agar widt hdan height selalu disamakan ketika di-set.
+
+Dalam kasus ini, penolakan warisan terjadi saat Square melakukan override pada fungsi setter parent-nya.
+
+Masalah terjadi ketika [code ini](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/before/RectangleTest.java) dijalankan:
+
+```java
+@Test
+void test() {
+  foo(new Rectangle());
+  foo(new Square());
+}
+
+void foo(Rectangle r) {
+  r.setHeight(10);
+  r.setWidth(20);
+  assertEquals(200, r.area());
+}
+```
+
+Fungsi foo memiliki parameter Rectangle. Tentunya, fungsi ini berekspektasi bahwa parameter Rectangle berperilaku sebagaimananya persegi panjang. Bila height = 10, width = 20, maka area 200.
+
+Sayangnya, unit test tersebut akan failed. Karena ketika `foo(new Square());`, terjadi:
+
+```
+expected: <200.00> but was: <400.0>
+```
+
+Fungsi foo mendapatkan area Square adalah 400 karena ketika width di-set 20, height pun turut diubah menjadi 20.
+
+#### Penyelesaian
+
+Rectangle dan Square (dan Triangle) memiliki struktur yang serupa, dilakukan extract class, menjadi abstract class [Shape2D](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/after/Shape2D.java). Kemudian semua class lain menjadi subclass dari abstract class ini. Silakan cek code di package [`after`](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/refused_bequest_2/after/).
+
 ### Tambahan
 
-#### java.util.Stack
+#### A. java.util.Stack
 
 Java sudah memiliki class Stack-nya sendiri di package `java.util`. Class Stack disini dibuat sendiri hanya untuk keperluan studi kasus. FYI, java.util.Stack adalah hasil inherit dari java.util.Vector. Anda dapat menghapus data di tengah-tengah Stack layaknya menggunakan Vector.
+
+#### B. Square-Rectangle Problem
+
+Kasus ini merupakan contoh umum untuk menjelaskan violasi Liskov Substitution Principle (LSP). Kasus ini dikenal dengan [square-rectangle problem](https://en.wikipedia.org/wiki/Circle%E2%80%93ellipse_problem).
+
+Wajar bila Anda pernah melakukan violasi LSP ketika baru belajar konsep OOP di semester lalu. Square dan Rectangle terkesan memiliki hubungan is-a, namun ternyata tidak boleh karena dalam kasus ini, Square hanya meminjam sebagian behavior dari Rectangle (fungsi area). Sedangkan behavior yang lain, malah ditimpa.
 
 
 ## Alternative Classes with Different Interfaces
