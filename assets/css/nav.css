@@ -233,7 +233,7 @@ nav li .active {
   .navigation-menu .title {
     float: none;
     width: auto;
-    max-width: 50%;
+    max-width: 70%;
     margin: 0 auto;
     position: relative;
   }
