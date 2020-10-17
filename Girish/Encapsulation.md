@@ -219,16 +219,32 @@ Rectangle r2 = r1; //shallow copy (return as reference of r1)
 r2.setLength(40);
 System.out.println("Rectangle 1 length: " + r1.getLength());
 System.out.println("Rectangle 2 length: " + r2.getLength());
+System.out.println("Rectangle 1 and 2 length equality: " + (r1.getLength() == r2.getLength()));
+```
+
+Output:
+```
+Rectangle 1 length: 40
+Rectangle 2 length: 40
+Rectangle 1 and 2 length equality: true
 ```
 
 Sebagai solusinya, pergunakan **deep copy** pada setiap `Vektor`/`ArrayList`/`Collections` beserta membernya untuk dibuatkan copy dari variabel tersebut beserta isinya secara utuh dengan method `clone()` sehingga ketika variabel pengikutnya (returner) ataupun variabel asli mengalami perubahan value, maka variabel lain yang mengikutinya tidak mengalami perubahan.
 
 ```java
 Rectangle r1 = new Rectangle(20);
-Rectangle r2 = r1.clone(); //deep copy (return as value of r1!)
+Rectangle r2 = (Rectangle) r1.clone(); //deep copy (return as value of r1!)
 r2.setLength(40);
 System.out.println("Rectangle 1 length: " + r1.getLength());
 System.out.println("Rectangle 2 length: " + r2.getLength());
+System.out.println("Rectangle 1 and 2 length equality: " + (r1.getLength() == r2.getLength()));
+```
+
+Output:
+```
+Rectangle 1 length: 40
+Rectangle 2 length: 20
+Rectangle 1 and 2 length equality: false
 ```
 
 Maka dengan penggunaan `clone()` setidaknya dapat menyelesaikan kasus *shallow copy* pada Object sehingga tidak mempengaruhi Object secara struktural.
