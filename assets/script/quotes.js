@@ -15,10 +15,16 @@ var arr = [
   "Eh.. mampus..! :((",
   "Press <strong>F</strong> to pay respect..",
   "All you had to do was follow the pricky train, CJ!",
+  "Nyari kajew?",
+  "small pp",
+  ":(",
+  "\"sini saya bungkus\" -- gilang.exe",
+  "lalu?",
+  "UUS berkata: ...?",
+  "Ikan hiu makan tomat, coba tekan back button biar gak tersesat",
   "Dear tempe, andai kau tahu..?",
   "OTW dulu ya.. tapi boong!",
-  "Ya Tuhan.. Ada apaan ya?",
-  "Nyari materi Code Reengineering kok nyari easter egg"
+  "Ya Tuhan.. Ada apaan ya?"
 ];
 
 quote.innerHTML = arr[Math.floor(Math.random() * arr.length)];
