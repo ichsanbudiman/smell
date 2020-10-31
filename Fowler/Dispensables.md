@@ -1,8 +1,13 @@
+---
+description: "Martin Fowler - Dispensables: Smell-smell yang berkaitan dengan bagian-bagian code kurang berguna dan bisa dibuang. Code-code yang terindikasi dalam smell tersebut sebetulnya tidak diperlukan dan tidak mempengaruhi jalannya suatu project sama sekali sehingga dapat dibuang."
+image: https://refactoring.guru/images/refactoring/content/smells/comments-01.png
+---
+
 # Dispensables
 
 [Smell](..) → [Martin Fowler Code Smells](.) → [Dispensables](#)
 
-Semua smell di dalam grup ini berkaitan dengan bagian-bagian code kurang berguna dan bisa dibuang.
+Semua smell di dalam grup ini berkaitan dengan bagian-bagian code kurang berguna dan bisa dibuang. Code-code yang terindikasi dalam smell tersebut sebetulnya tidak diperlukan dan tidak mempengaruhi jalannya suatu project sama sekali sehingga dapat dibuang.
 
 - [Comments](#comments)
 - [Duplicate Code](#duplicate-code)

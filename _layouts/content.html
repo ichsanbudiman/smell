@@ -30,7 +30,9 @@
     <header class="page-header" role="banner">
       {% assign untitled = "A page in " | append: site.title %}
       <h1 class="project-name">{{ page.title | default: untitled }}</h1>
+      {% if page.allow_description %}
       <h2 class="project-tagline">{{ page.description }}</h2>
+      {% endif %}
       <a href="{{ site.github.wiki_url }}" class="btn">View on GitHub Wiki</a>
     </header>
 

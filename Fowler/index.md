@@ -1,10 +1,16 @@
+---
+description: "Klasifikasi smell berdasarkan literatur dari Martin Fowler yang mencakup 5 jenis smell: Bloaters, Object-Orientation Abusers, Change Preventers, Dispensables, dan Couplers"
+---
+
 # Martin Fowler Code Smells
 
 [Smell](..) → [Martin Fowler Code Smells](#)
 
-Untuk pembagian materi, BINUS menggunakan pengelompokan group smell yang telah dibuat oleh [sourcemaking](https://sourcemaking.com/refactoring) (atau sumber langsungnya, [refactoring.guru](https://refactoring.guru/refactoring/smells/)).
+Pada literatur Martin Fowler, kasus smell ini mencakup permasalahan mendasar mengenai code, class, relasi antar class, dan penerapan prinsip OOP yang kurang tepat yang mempersulit programmer dalam menghadapi perubahan.
 
-Semua contoh dalam [repository ini](https://github.com/mrp130/smell/tree/master/src/fowler/) dibagi dalam dua package. `before` dan `after`. Sesuai dengan namanya, `before` adalah contoh code yang memiliki code smell yang akan dibahas, `after` adalah hasil setelah di-refactor.
+Untuk pembagian materi, BINUS menggunakan pengelompokan group smell yang telah dibuat oleh Martin Fowler yang telah diadaptasi secara interaktif melalui [sourcemaking](https://sourcemaking.com/refactoring) dan [refactoring.guru](https://refactoring.guru/refactoring/smells/).
+
+Semua contoh dalam [repository ini](https://github.com/akmalrusli363/smell/tree/master/src/fowler/) dibagi dalam dua package. `before` dan `after`. Sesuai dengan namanya, `before` adalah contoh code yang memiliki code smell yang akan dibahas, `after` adalah hasil setelah di-refactor.
 
 ### Penjelasan Smell
 

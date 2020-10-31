@@ -1,3 +1,8 @@
+---
+description: "Girish Suryanarayana et al. - Hierarchy: Smell-smell yang berkaitan dengan kesalahan dalam merancang hierarki."
+image: "../img/girish/hierarchy.png"
+---
+
 # Hierarchy
 
 [Smell](..) → [Girish Suryanarayana et al. Code Smells](.) → [Hierarchy](#)

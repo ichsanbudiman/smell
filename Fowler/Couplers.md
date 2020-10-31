@@ -1,8 +1,13 @@
+---
+description: "Martin Fowler - Couplers: Smell-smell dimana code dengan tingkat coupling yang tinggi. Meski tidak mempengaruhi jalannya project, namun tingginya coupling (dan rendahnya cohesion) akan menyusahkan class lain dan secara tidak langsung mengakibatkan developer sulit menangani perubahan modul meski dengan perubahan paling kecil sekalipun karena dependensi antar class yang tinggi."
+image: https://refactoring.guru/images/refactoring/content/smells/inappropriate-intimacy-01.png
+---
+
 # Couplers
 
 [Smell](..) → [Martin Fowler Code Smells](.) → [Couplers](#)
 
-Semua smell di dalam grup ini berkaitan dengan coupling yang tinggi.
+Semua smell di dalam grup ini berkaitan dengan coupling yang tinggi. Meski tidak mempengaruhi jalannya project, namun tingginya coupling _(dan rendahnya cohesion)_ akan menyusahkan class lain dan secara tidak langsung mengakibatkan developer sulit menangani perubahan modul meski dengan perubahan paling kecil sekalipun karena dependensi antar class yang tinggi.
 
 Seperti yang telah Anda pelajari di matakuliah Program Design Methods di semester sebelumnya, code yang baik memiliki coupling yang dibuat serendah mungkin antar modulnya, dan memiliki cohesion yang dibuat setinggi mungkin di dalam modulnya. Untuk review, silakan baca [link ini](https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/).
 

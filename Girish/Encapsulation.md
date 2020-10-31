@@ -1,3 +1,8 @@
+---
+description: "Girish Suryanarayana et al. - Encapsulation: Smell-smell yang berkaitan dengan kesalahan dalam merancang enkapsulasi dalam interface/abstraksi."
+image: "../img/girish/encapsulation.png"
+---
+
 # Encapsulation
 
 [Smell](..) → [Girish Suryanarayana et al. Code Smells](.) → [Encapsulation](#)

@@ -1,3 +1,8 @@
+---
+description: "Martin Fowler - Change Preventers: Smell-smell yang berkaitan dengan code yang mempersulit kita ketika ingin melakukan perubahan atau penambahan fitur."
+image: https://refactoring.guru/images/refactoring/content/smells/divergent-change-01.png
+---
+
 # Change Preventers
 
 [Smell](..) → [Martin Fowler Code Smells](.) → [Change Preventers](#)

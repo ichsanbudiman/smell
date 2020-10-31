@@ -1,3 +1,8 @@
+---
+description: "Martin Fowler - Bloaters: Smell-smell berkaitan dengan bagian code yang terlalu gemuk. Bila terlalu banyak code di dalam suatu class atau method, programmer lain akan kesulitan memahami isi code."
+image: https://refactoring.guru/images/refactoring/content/smells/long-method-01.png
+---
+
 # Bloaters
 
 [Smell](..) → [Martin Fowler Code Smells](.) → [Bloaters](#)
@@ -59,8 +64,8 @@ Refactor pada contoh `SemesterMenu` ini belum selesai. Terdapat smell Large Clas
 
 [sourcemaking](https://sourcemaking.com/refactoring/smells/large-class) |
 [refactoring.guru](https://refactoring.guru/smells/large-class) |
-[before](https://github.com/mrp130/smell/tree/master/src/fowler/bloaters/large_class/before) |
-[after](https://github.com/mrp130/smell/tree/master/src/fowler/bloaters/large_class/after)
+[before](https://github.com/akmalrusli363/smell/tree/master/src/fowler/bloaters/large_class/before) |
+[after](https://github.com/akmalrusli363/smell/tree/master/src/fowler/bloaters/large_class/after)
 
 ### Penjelasan Smell
 
@@ -162,8 +167,8 @@ public void balanceNotif(User user, int amount) {
 
 [sourcemaking](https://sourcemaking.com/refactoring/smells/data-clumps) |
 [refactoring.guru](https://refactoring.guru/smells/data-clumps) |
-[before](https://github.com/mrp130/smell/tree/master/src/fowler/bloaters/data_clumps/before) |
-[after](https://github.com/mrp130/smell/tree/master/src/fowler/bloaters/data_clumps/after)
+[before](https://github.com/akmalrusli363/smell/tree/master/src/fowler/bloaters/data_clumps/before) |
+[after](https://github.com/akmalrusli363/smell/tree/master/src/fowler/bloaters/data_clumps/after)
 
 ### Penjelasan Smell
 

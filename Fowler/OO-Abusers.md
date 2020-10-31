@@ -1,8 +1,13 @@
+---
+description: "Martin Fowler - Object Orientation Abusers: Smell-smell yang berkaitan dengan penerapan prinsip OOP yang kurang tepat, baik karena kurangnya pengetahuan mengenai OOP maupun pemikiran programmer yang terlalu procedural pada OOP."
+image: https://refactoring.guru/images/refactoring/content/smells/refused-bequest-02.png
+---
+
 # Object Orientation Abusers
 
 [Smell](..) → [Martin Fowler Code Smells](.) → [OO-Abusers](#)
 
-Semua smell di dalam grup ini berkaitan dengan penerapan prinsip OOP yang kurang tepat.
+Semua smell di dalam grup ini berkaitan dengan penerapan prinsip OOP yang kurang tepat, baik karena kurangnya pengetahuan mengenai OOP maupun pemikiran programmer yang terlalu procedural pada OOP.
 
 - [Switch Statements](#switch-statements)
 - [Temporary Field](#temporary-field)
