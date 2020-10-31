@@ -1,7 +1,6 @@
 theme: jekyll-theme-cayman
 title: Code Reengineering
 description: Code Reengineering - Smell, Refactoring, and Technical Debts.
-image: ./assets/opengraph.png
 
 plugins:
   - jemoji
@@ -11,4 +10,4 @@ defaults:
   - values:
       layout: "content"
       big_header: false
-      defaults:
+      image: /img/opengraph.png

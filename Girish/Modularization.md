@@ -1,6 +1,6 @@
 ---
 description: "Girish Suryanarayana et al. - Abstraction: Smell-smell yang berkaitan dengan kesalahan dalam merancang modul-modul di dalam hierarki."
-image: "../img/girish/modularization.png"
+image: /img/girish/modularization.png
 ---
 
 # Modularization

@@ -1,6 +1,6 @@
 ---
 description: "Girish Suryanarayana et al. - Abstraction: Smell-smell yang berkaitan dengan kesalahan dalam mendesain abstraksi."
-image: ../img/girish/abstraction.png
+image: /img/girish/abstraction.png
 ---
 
 # Abstraction
