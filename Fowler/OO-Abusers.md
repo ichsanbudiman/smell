@@ -337,9 +337,9 @@ Atau bisa karena tidak mengikuti prinsip DIP ([Dependency Inversion Principle](h
 Contohnya, class [Ghost.java](https://github.com/akmalrusli363/smell/tree/master/src/fowler/oo_abusers/alt_classes_with_dif_interfaces/before/Ghost.java) memiliki fungsi `paint` yang bertujuan menggambar Ghost dari spritesheet yang tersedia.
 ```java
 public class Ghost {
-	public void paint(Graphics2D g){
-		//draw Ghost pixel from spritesheet
-	}
+  public void paint(Graphics2D g){
+    //draw Ghost pixel from spritesheet
+  }
 }
 ```
 
@@ -347,9 +347,9 @@ Di sisi lain, class [PacMan.java](https://github.com/akmalrusli363/smell/tree/ma
 
 ```java
 public class PacMan {
-	public void draw(Graphics2D g){
-		//draw PacMan pixel from spritesheet
-	}
+  public void draw(Graphics2D g){
+    //draw PacMan pixel from spritesheet
+  }
 }
 ```
 
@@ -361,7 +361,7 @@ Untuk contoh kasus ini, kita melakukan [Extract Superclass](https://sourcemaking
 
 ```java
 public interface Drawable {
-	public void draw(Graphics2D g);
+  public void draw(Graphics2D g);
 }
 ```
 
