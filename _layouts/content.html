@@ -32,6 +32,8 @@
       <h1 class="project-name">{{ page.title | default: untitled }}</h1>
       {% if page.allow_description %}
       <h2 class="project-tagline">{{ page.description }}</h2>
+      {% else %}
+      <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2>
       {% endif %}
       <a href="{{ site.github.wiki_url }}" class="btn">View on GitHub Wiki</a>
     </header>
