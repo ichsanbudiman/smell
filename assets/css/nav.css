@@ -60,22 +60,19 @@ nav li .active {
 }
 
 .navigation-menu .logo {
-  margin: 0 0;
-  padding: 0.7em 1em;
+  padding: .1rem .5rem;
   vertical-align: middle;
 }
 
 .navigation-menu .logo img {
-  object-fit: contain;
-  width: auto;
-  height: 1.75em;
-  padding-right: 0.5em;
-  vertical-align: middle;
+  height: 3rem;
 }
 
-.navigation-menu .logo strong {
-  font-size: 1.3em;
+.navigation-menu .logo *:not(img) {
+  padding: .5rem;
   vertical-align: middle;
+  position: relative;
+  top: -1rem;
 }
 
 .navigation-menu .icon {
@@ -96,6 +93,14 @@ nav li .active {
   padding: 1em 1em;
   text-decoration: none;
   font-size: 1em;
+}
+
+.navigation-menu .mobile {
+  display: none;
+}
+
+.navigation-menu .desktop {
+  display: inherit;
 }
 
 .menu .right {
@@ -156,10 +161,21 @@ nav li .active {
   display: none;
   position: absolute;
   background-color: var(--bg-white);
-  min-width: 160px;
+  min-width: 180px;
   box-shadow: 0px 8px 16px 0px var(--shadow-color);
   transform: translate(-100%,-3.2em);
+  max-height: 25rem;
+  max-height: 70vh;
+  overflow-y: scroll;
   z-index: 1;
+}
+
+.subdropdown-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.subdropdown-content::-webkit-scrollbar-thumb {
+  background: #bbb;
 }
 
 .subdropdown-content a {
@@ -212,7 +228,13 @@ nav li .active {
   display: block;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (min-width: 769px) and (max-width: 840px) {
+  .menu a, .navigation-menu a {
+    padding: 1rem .65rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
   nav.blend {
     top: 0;
     position: sticky;
@@ -236,6 +258,22 @@ nav li .active {
     max-width: 70%;
     margin: 0 auto;
     position: relative;
+  }
+
+  .navigation-menu .title-img {
+    padding: 0.1rem 1rem;
+  }
+
+  .title-img img {
+    height: 3rem;
+  }
+
+  .navigation-menu .mobile {
+    display: block;
+  }
+
+  .navigation-menu .desktop {
+    display: none;
   }
 
   .navigation-menu .icon {
@@ -290,5 +328,6 @@ nav li .active {
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.0);
     top: 0;
     left: 0;
+    max-height: max-content;
   }
 }

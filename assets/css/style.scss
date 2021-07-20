@@ -1,7 +1,63 @@
 ---
 ---
 
+@import "_variables";
 @import "{{ site.theme }}";
+@import "rogue-github";
+
+.dark {
+  background-color: $dark-bg-color !important;
+  color: $dark-body-text-color;
+
+  .page-header {
+    background-color: $dark-header-bg-color !important;
+    background-image: linear-gradient(120deg, $dark-header-bg-color-secondary, $dark-header-bg-color);
+  }
+
+  .main-content {
+    a {
+      color: $dark-body-link-color;
+    }
+
+    code.highlighter-rouge {
+      color: $dark-body-text-color;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $dark-section-headings-color;
+    }
+
+    blockquote {
+      color: $dark-blockquote-text-color;
+    }
+  }
+
+  footer {
+    color: $dark-body-text-color;
+
+    a {
+      color: $dark-body-link-color;
+    }
+
+    .site-footer-credits {
+      color: $blockquote-text-color;
+    }
+  }
+}
+
+input, button {
+  color: $body-text-color;
+  border: 1px solid $body-text-color;
+  border-radius: .25rem;
+}
+
+body {
+  transition: .1s ease;
+}
+
+.page-header {
+  transition: 0.2s ease !important;
+}
 
 #skip-to-content {
   height: 1px;
@@ -22,14 +78,64 @@
   }
 }
 
+.night-toggle {
+  cursor: pointer;
+
+  i {
+    width: 1rem;
+  }
+
+  .night-toggle-text {
+    margin-left: .5rem;
+  }
+
+  @media screen and (max-width: 899px) {
+    .night-toggle-text {
+      display: none;
+    }
+  }
+}
+
 .site-footer {
-  border-top: solid 2px $hr-border-color;
+  border-top: dotted 1px rgba($hr-border-color, 0.2);
 }
 
 .plain {
   padding: 1rem 2rem;
   margin: 0 0;
   padding-top: 1rem;
+}
+
+img {
+  &[src*="#center"] {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+
+  &[src*="#white"] {
+    background-color: white;
+  }
+
+  &[src*="#white-center"] {
+    background-color: white;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+
+  &[src*="#thumb-center"] {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 15rem;
+  }
+
+  &.thumbnail {
+    width: auto;
+    height: 15rem;
+  }
 }
 
 :target::before {
