@@ -12,20 +12,18 @@ public class SemesterMenu {
 	public SemesterMenu(Semesters s) {
 		semesters = s;
 	}
-	
-	public void open() {
-		while(menu()) {}
-	}
 
 	private boolean menu(){
+		boolean loop = true; 
+		do{
 		semesters.show();
 		int input = printAndGetMenu();
 		switch(input){
 		case 1: create(); break;
 		case 2: delete(); break;
-		case 3: return false;
+		case 3: loop = false;
 		}
-		return true;
+		}while(loop);
 	}
 	
 	private int printAndGetMenu() {
