@@ -8,6 +8,6 @@ public class Main {
 	
 	public Main(Semesters s) {
 		SemesterMenu semesterMenu = new SemesterMenu(s);
-		semesterMenu.open();
+		semesterMenu.menu();
 	}
 }
