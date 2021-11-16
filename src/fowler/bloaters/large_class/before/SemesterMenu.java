@@ -13,20 +13,16 @@ public class SemesterMenu {
 		semesters = new Vector<Semester>();
 		scan = new Scanner(System.in); 
 	}
-	
-	public void open() {
-		while(menu()) {}
-	}
 
-	private boolean menu(){
-		showSemesters();
-		int input = printAndGetMenu();
-		switch(input){
-		case 1: create(); break;
-		case 2: delete(); break;
-		case 3: return false;
-		}
-		return true;
+	private void menu(){
+		do{
+			showSemesters();
+			int input = printAndGetMenu();
+			switch(input){
+			case 1: create(); break;
+			case 2: delete(); break;
+			case 3: return false;
+		}while(true);
 	}
 
 	private void create() {		
