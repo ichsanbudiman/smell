@@ -15,14 +15,15 @@ public class SemesterMenu {
 	}
 
 	private void menu(){
+		boolean exit = true;
 		do{
 			showSemesters();
 			int input = printAndGetMenu();
 			switch(input){
 			case 1: create(); break;
 			case 2: delete(); break;
-			case 3: return false;
-		}while(true);
+			case 3: exit = false;
+		}while(exit);
 	}
 
 	private void create() {		
