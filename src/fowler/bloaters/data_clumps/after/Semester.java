@@ -6,10 +6,10 @@ public class Semester {
 	private String label;
 	private DateRange dateRange;
 	
-	public Semester(String label, Date start, Date end) {
+	public Semester(String label, DateRange dateRange) {
 		super();
 		this.label = label;
-		this.dateRange = new DateRange(start,end);
+		this.dateRange = dateRange;
 	}
 	
 	public String getLabel() {
