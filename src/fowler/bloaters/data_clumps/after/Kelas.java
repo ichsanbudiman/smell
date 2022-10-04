@@ -6,9 +6,9 @@ public class Kelas {
 	private String course;
 	private DateRange dateRange;
 	
-	public Kelas(String course, Date start, Date end){
+	public Kelas(String course, DateRange dateRange){
 		this.course = course;
-		this.dateRange = new DateRange(start,end);
+		this.dateRange = dateRange;
 	}
 	
 	public String getCourse(){
